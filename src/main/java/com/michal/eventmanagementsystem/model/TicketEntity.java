@@ -19,16 +19,7 @@ public class TicketEntity {
     private String ticketQuantity;
     private Event event;
 
-    public TicketEntity(Long ticketId, String ticketType, String ticketPrice,
-                        String startTicket, String endTicket, String ticketStatus, String ticketQuantity, Event event) {
-        this.ticketId = ticketId;
-        this.ticketType = ticketType;
-        this.ticketPrice = ticketPrice;
-        this.startTicket = startTicket;
-        this.endTicket = endTicket;
-        this.ticketStatus = ticketStatus;
-        this.ticketQuantity = ticketQuantity;
-        this.event = event;
+    public TicketEntity() {
     }
 
     public Long getTicketId() {
