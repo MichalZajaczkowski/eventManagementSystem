@@ -5,11 +5,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ticket")
-public class TicketEntity {
+public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ticket_id", nullable = false, unique = true)
     private Long ticketId;
     private String ticketType;
     private String ticketPrice;
@@ -19,7 +19,7 @@ public class TicketEntity {
     private String ticketQuantity;
     private Event event;
 
-    public TicketEntity() {
+    public Ticket() {
     }
 
     public Long getTicketId() {
@@ -90,7 +90,7 @@ public class TicketEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TicketEntity that = (TicketEntity) o;
+        Ticket that = (Ticket) o;
         return Objects.equals(ticketId, that.ticketId) && Objects.equals(ticketType, that.ticketType) && Objects.equals(ticketPrice, that.ticketPrice) && Objects.equals(startTicket, that.startTicket) && Objects.equals(endTicket, that.endTicket) && Objects.equals(ticketStatus, that.ticketStatus) && Objects.equals(ticketQuantity, that.ticketQuantity) && Objects.equals(event, that.event);
     }
 

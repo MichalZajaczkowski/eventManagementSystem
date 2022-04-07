@@ -1,16 +1,19 @@
 package com.michal.eventmanagementsystem.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "place")
-public class PlaceEntity {
+public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "place_id", nullable = false, unique = true)
     private Long placeId;
-    private Long categoryId;
+    private String categoryId;
     private String name;
     private String subName;
     private String description;
@@ -21,8 +24,23 @@ public class PlaceEntity {
     private String phone;
     private String email;
     private String website;
+    private Set<Event> events = new HashSet<>(); // bo jedno miejsce przechowywac wiele wydarzeń
 
-    public PlaceEntity() {
+    public Place() {
+    }
+
+    public Place(String categoryId, String name, String subName, String description, String city, String street, String zipCode, String country, String phone, String email, String website) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.subName = subName;
+        this.description = description;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.country = country;
+        this.phone = phone;
+        this.email = email;
+        this.website = website;
     }
 
     public Long getPlaceId() {
@@ -33,11 +51,11 @@ public class PlaceEntity {
         this.placeId = placeId;
     }
 
-    public Long getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -97,40 +115,16 @@ public class PlaceEntity {
         this.country = country;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlaceEntity placeEntity = (PlaceEntity) o;
-        return Objects.equals(placeId, placeEntity.placeId) && Objects.equals(categoryId, placeEntity.categoryId) && Objects.equals(name, placeEntity.name) && Objects.equals(subName, placeEntity.subName) && Objects.equals(description, placeEntity.description) && Objects.equals(city, placeEntity.city) && Objects.equals(street, placeEntity.street) && Objects.equals(zipCode, placeEntity.zipCode) && Objects.equals(country, placeEntity.country) && Objects.equals(phone, placeEntity.phone) && Objects.equals(email, placeEntity.email) && Objects.equals(website, placeEntity.website);
+        Place that = (Place) o;
+        return Objects.equals(placeId, that.placeId) && Objects.equals(categoryId, that.categoryId) && Objects.equals(name, that.name) && Objects.equals(subName, that.subName) && Objects.equals(description, that.description) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(website, that.website) && Objects.equals(events, that.events);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(placeId, categoryId, name, subName, description, city, street, zipCode, country, phone, email, website);
+        return Objects.hash(placeId, categoryId, name, subName, description, city, street, zipCode, country, phone, email, website, events);
     }
 }

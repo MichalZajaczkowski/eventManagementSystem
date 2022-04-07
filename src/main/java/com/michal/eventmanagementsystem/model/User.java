@@ -1,15 +1,17 @@
 package com.michal.eventmanagementsystem.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId", nullable = false)
+    @Column(name = "userId", nullable = false, unique = true)
     private Long userId;
     private String name;
     private String surname;
@@ -22,10 +24,9 @@ public class UserEntity {
     private String country;
     private String userType;
     private String userStatus;
-/*
-    private Set<Event> favourites = new HashSet<>();
-*/
-    public UserEntity() {
+    private Set<Event> favourites = new HashSet<>(); // do przechowywania listy ulibionych wydarzeń
+
+    public User() {
     }
 
     public Long getUserId() {
@@ -128,7 +129,7 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
+        User that = (User) o;
         return Objects.equals(userId, that.userId) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.equals(userType, that.userType) && Objects.equals(userStatus, that.userStatus);
     }
 
