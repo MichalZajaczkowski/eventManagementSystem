@@ -1,9 +1,7 @@
 package com.michal.eventmanagementsystem.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -11,6 +9,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId", nullable = false)
     private Long userId;
     private String name;
     private String surname;
