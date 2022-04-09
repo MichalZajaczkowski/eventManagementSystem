@@ -1,7 +1,9 @@
 package com.michal.eventmanagementsystem.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "event")
@@ -18,11 +20,27 @@ public class Event {
     private String descShort;
     private String descLong;
     private Boolean isActive;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_id", referencedColumnName = "placeId")
     private Place place;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "eventUrl_id", referencedColumnName = "eventUrlId")
     private EventURL eventUrl;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organizer_id", referencedColumnName = "organizerId")
     private Organizer organizer;
-    private Ticket ticket;
-    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketId")
+    private Ticket tickets;
+
+
+
+    @ManyToMany(mappedBy = "favourites")
+    private Set<User> user = new HashSet<>();
 
     public Event() {
     }
@@ -115,19 +133,19 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Ticket getTickets() {
+        return tickets;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setTickets(Ticket tickets) {
+        this.tickets = tickets;
     }
 
-    public User getUser() {
+    public Set<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Set<User> user) {
         this.user = user;
     }
 
@@ -141,13 +159,13 @@ public class Event {
                 && Objects.equals(endDate, that.endDate) && Objects.equals(descShort, that.descShort)
                 && Objects.equals(descLong, that.descLong) && Objects.equals(isActive, that.isActive)
                 && Objects.equals(place, that.place) && Objects.equals(eventUrl, that.eventUrl)
-                && Objects.equals(organizer, that.organizer) && Objects.equals(ticket, that.ticket)
+                && Objects.equals(organizer, that.organizer) && Objects.equals(tickets, that.tickets)
                 && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(eventId, categoryId, name, startDate, endDate, descShort,
-                descLong, isActive, place, eventUrl, organizer, ticket, user);
+                descLong, isActive, place, eventUrl, organizer, tickets, user);
     }
 }

@@ -18,6 +18,7 @@ public class Organizer {
     private String organizerEmail;
     private String organizerPhone;
     private String description;
+    @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
     private Set<Event> events = new HashSet<>(); // bo jeden organizator może robić wiele wydarzeń
 
     public Organizer() {

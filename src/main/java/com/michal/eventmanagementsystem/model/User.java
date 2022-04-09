@@ -24,6 +24,12 @@ public class User {
     private String country;
     private String userType;
     private String userStatus;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "favourites",
+            joinColumns = @JoinColumn(name = "userId", referencedColumnName = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "eventId", referencedColumnName = "eventId")
+    )
     private Set<Event> favourites = new HashSet<>(); // do przechowywania listy ulibionych wydarzeń
 
     public User() {

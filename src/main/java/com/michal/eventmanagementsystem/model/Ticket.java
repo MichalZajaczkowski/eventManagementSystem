@@ -17,6 +17,7 @@ public class Ticket {
     private String endTicket;
     private String ticketStatus;
     private String ticketQuantity;
+    @OneToOne(mappedBy = "tickets")
     private Event event;
 
     public Ticket() {

@@ -12,6 +12,7 @@ public class EventURL {
     private Long eventUrlId;
     private String www;
     private String tickets;
+    @OneToOne(mappedBy = "eventUrl")
     private Event event;
 
     public EventURL() {

@@ -24,6 +24,8 @@ public class Place {
     private String phone;
     private String email;
     private String website;
+
+    @OneToMany(mappedBy = "place")
     private Set<Event> events = new HashSet<>(); // bo jedno miejsce przechowywac wiele wydarzeń
 
     public Place() {
