@@ -37,7 +37,9 @@ public class Event {
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticketId")
     private Ticket tickets;
 
-
+    @OneToOne
+    @JoinColumn(name = "attachment_id", referencedColumnName = "attachmentId")
+    private Attachment attachment;
 
     @ManyToMany(mappedBy = "favourites")
     private Set<User> user = new HashSet<>();

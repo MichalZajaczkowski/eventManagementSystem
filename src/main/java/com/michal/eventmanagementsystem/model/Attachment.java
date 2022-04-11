@@ -10,8 +10,7 @@ public class Attachment {
     private Long attachmentId;
     private String fileName;
 
-    @ManyToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name="event_Id", referencedColumnName = "eventId")
+    @OneToOne(mappedBy = "attachment")
     private Event event;
 
     public Attachment() {
