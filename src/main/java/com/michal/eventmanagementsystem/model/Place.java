@@ -17,7 +17,10 @@ public class Place {
     @Column(name = "descriptions")
     private String description;
 
+    @OneToMany(mappedBy = "place")
     private Set<Event> events;
 
+    @OneToOne
+    @JoinColumn(name = "place_address_id", referencedColumnName = "placeAddressId")
     private PlaceAddress placeAddress;
 }

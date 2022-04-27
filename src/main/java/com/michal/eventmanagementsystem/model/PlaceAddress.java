@@ -27,7 +27,9 @@ public class PlaceAddress {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne(mappedBy = "placeAddress")
     private Place place;
 
+    @OneToOne(mappedBy = "placeAddress")
     private Organizer organizer;
 }

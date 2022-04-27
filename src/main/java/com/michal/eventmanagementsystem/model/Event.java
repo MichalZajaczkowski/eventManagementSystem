@@ -26,13 +26,23 @@ public class Event {
     @Column(name = "event_end_date")
     private LocalDateTime eventEndDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "userid")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "place_id", referencedColumnName = "placeid")
     private Place place;
 
+    @ManyToOne
+    @JoinColumn(name = "organizer_id", referencedColumnName = "organizerid")
     private Organizer organizer;
 
+    @OneToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketid")
     private Ticket ticket;
 
+    @OneToOne
+    @JoinColumn(name = "eventAddress_id", referencedColumnName = "eventAddressId")
     private EventAddress eventAddress;
 }

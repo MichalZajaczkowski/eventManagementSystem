@@ -29,6 +29,7 @@ public class UserAddress {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne(mappedBy = "userAddress")
     private User user;
 
 }

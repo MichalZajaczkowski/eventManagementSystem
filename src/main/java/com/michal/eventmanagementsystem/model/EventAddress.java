@@ -29,5 +29,6 @@ public class EventAddress {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne(mappedBy = "eventAddress")
     private Event event;
 }

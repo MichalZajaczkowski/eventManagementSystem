@@ -20,7 +20,10 @@ public class Ticket {
     @Column(name = "price")
     private BigDecimal price;
 
+    @OneToOne(mappedBy = "ticket")
     private Event event;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "userid")
     private User user;
 }

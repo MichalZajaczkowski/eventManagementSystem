@@ -30,11 +30,15 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @OneToMany(mappedBy = "user")
     private Set<Event> events;
 
+    @OneToOne
+    @JoinColumn(name = "user_address_id", referencedColumnName = "userAddressId")
     private UserAddress userAddress;
 
-    private Ticket ticket;
+    @OneToMany(mappedBy = "user")
+    private Set<Ticket> tickets;
 
 
 }
