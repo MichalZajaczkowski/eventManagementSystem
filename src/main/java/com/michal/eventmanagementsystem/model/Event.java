@@ -14,6 +14,22 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    private Place placeId;
+
+    @ManyToOne
+    @JoinColumn(name = "organizer_id")
+    private Organizer organizerId;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status statusId;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category categoryId;
+
     @Column(name = "name")
     private String name;
 
@@ -21,28 +37,9 @@ public class Event {
     private String description;
 
     @Column(name = "event_start_date")
-    private LocalDateTime eventStartDate;;
+    private LocalDateTime eventStartDate;
 
     @Column(name = "event_end_date")
     private LocalDateTime eventEndDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "userid")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "place_id", referencedColumnName = "placeid")
-    private Place place;
-
-    @ManyToOne
-    @JoinColumn(name = "organizer_id", referencedColumnName = "organizerid")
-    private Organizer organizer;
-
-    @OneToOne
-    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketid")
-    private Ticket ticket;
-
-    @OneToOne
-    @JoinColumn(name = "eventAddress_id", referencedColumnName = "eventAddressId")
-    private EventAddress eventAddress;
 }

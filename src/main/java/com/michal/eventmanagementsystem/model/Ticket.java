@@ -14,16 +14,18 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event eventId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
+
     @Column(name = "ticket_number")
     private Long ticketNumber;
 
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToOne(mappedBy = "ticket")
-    private Event event;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "userid")
-    private User user;
 }

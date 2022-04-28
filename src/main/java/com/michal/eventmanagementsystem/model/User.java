@@ -15,6 +15,10 @@ public class User {
     @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_address_id")
+    private UserAddress userAddress;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -29,16 +33,6 @@ public class User {
 
     @Column(name = "email", nullable = false)
     private String email;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Event> events;
-
-    @OneToOne
-    @JoinColumn(name = "user_address_id", referencedColumnName = "userAddressId")
-    private UserAddress userAddress;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Ticket> tickets;
 
 
 }

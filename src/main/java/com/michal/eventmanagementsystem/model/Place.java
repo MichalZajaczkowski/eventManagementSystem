@@ -11,16 +11,13 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "place-address_id")
+    private PlaceAddress placeAddress;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "descriptions")
     private String description;
-
-    @OneToMany(mappedBy = "place")
-    private Set<Event> events;
-
-    @OneToOne
-    @JoinColumn(name = "place_address_id", referencedColumnName = "placeAddressId")
-    private PlaceAddress placeAddress;
 }

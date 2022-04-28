@@ -11,25 +11,21 @@ public class PlaceAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "region")
+    private String region;
+
     @Column(name = "city")
     private String city;
 
     @Column(name = "street")
     private String street;
 
-
     @Column(name = "zip_code")
     private String zipCode;
 
-    @Column(name = "country")
-    private String country;
-
     @Column(name = "phone")
     private String phone;
-
-    @OneToOne(mappedBy = "placeAddress")
-    private Place place;
-
-    @OneToOne(mappedBy = "placeAddress")
-    private Organizer organizer;
 }

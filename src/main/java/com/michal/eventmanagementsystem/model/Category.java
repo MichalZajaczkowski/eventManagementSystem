@@ -1,21 +1,16 @@
 package com.michal.eventmanagementsystem.model;
 
-public enum Category {
-    CINEMA(0),
-    THEATRE(1),
-    SPORT(2),
-    EXHIBITION(3),
-    CONFERENCE(4),
-    FESTIVAL(5),
-    OTHER(6);
+import lombok.Data;
 
-    private int categoryValue;
+import javax.persistence.*;
 
-    Category(int value) {
-        this.categoryValue = categoryValue;
-    }
+@Data
+@Entity
+public class Category {
 
-    public int getCategoryValue() {
-        return categoryValue;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String description;
 }

@@ -6,12 +6,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Status {
-
+public class Facourite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 }
