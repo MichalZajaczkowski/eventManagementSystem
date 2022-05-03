@@ -12,7 +12,7 @@ public class Place {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "place-address_id")
+    @JoinColumn(name = "place_address_id")
     private PlaceAddress placeAddress;
 
     @Column(name = "name")
