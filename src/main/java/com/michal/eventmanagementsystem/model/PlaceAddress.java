@@ -1,9 +1,14 @@
 package com.michal.eventmanagementsystem.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "place_address")
 public class PlaceAddress {
