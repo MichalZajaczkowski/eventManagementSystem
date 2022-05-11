@@ -19,14 +19,14 @@ public class PlaceAddress {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "region")
-    private String region;
-
     @Column(name = "city")
     private String city;
 
-    @Column(name = "street")
-    private String street;
+    @Column(name = "street_name")
+    private String streetName;
+
+    @Column(name = "street_number")
+    private String streetNumber;
 
     @Column(name = "zip_code")
     private String zipCode;
