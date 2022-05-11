@@ -1,10 +1,16 @@
 package com.michal.eventmanagementsystem.model;
 
-import javax.persistence.*;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "places")
+@Table(name = "place")
 public class Place {
 
     @Id
@@ -13,11 +19,11 @@ public class Place {
 
     @ManyToOne
     @JoinColumn(name = "place_address_id")
-    private PlaceAddress placeAddress;
+    private PlaceAddress placeAddressId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "place_name")
+    private String placeName;
 
-    @Column(name = "descriptions")
+    @Column(name = "description")
     private String description;
 }
