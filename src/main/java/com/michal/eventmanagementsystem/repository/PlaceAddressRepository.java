@@ -2,53 +2,31 @@ package com.michal.eventmanagementsystem.repository;
 
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class PlaceAddressRepository {
+public interface PlaceAddressRepository extends JpaRepository<PlaceAddress, Long> {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
 
-    public List<PlaceAddress> getAll() {
-        return jdbcTemplate.query("SELECT * FROM place_address",
-                BeanPropertyRowMapper.newInstance(PlaceAddress.class));
-    }
+    List<PlaceAddress> findAll();
 
-    public PlaceAddress getById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM place_address WHERE id = ?",
-                BeanPropertyRowMapper.newInstance(PlaceAddress.class), id);
-    }
+    @Override
+    Optional<PlaceAddress> findById(Long aLong);
 
-    public void deleteById(int id) {
-        jdbcTemplate.update("DELETE FROM place_address WHERE id = ?", id);
-    }
+    PlaceAddress save(PlaceAddress placeAddressList);
 
-    public void deleteAll() {
-        jdbcTemplate.update("DELETE FROM place_address");
-    }
+    PlaceAddress getById(Long id);
 
-    public int add(List<PlaceAddress> placeAddressList) {
-        placeAddressList.forEach(placeAddress ->
-                jdbcTemplate.update("INSERT INTO place_address (country, city, street_name, street_number, zip_code, phone) VALUES (?, ?, ?, ?, ?, ?)",
-                        placeAddress.getCountry(), placeAddress.getCity(), placeAddress.getStreetName(), placeAddress.getStreetNumber(),
-                        placeAddress.getZipCode(), placeAddress.getPhone()));
+    void deleteById(Long id);
 
-        return placeAddressList.size();
-    }
+    void deleteAll();
 
-    /*update placeAddress*/
-    public int update(PlaceAddress placeAddress) {
-        jdbcTemplate.update("UPDATE place_address SET country = ?, city = ?, street_name = ?, street_number = ?, zip_code = ?, phone = ? WHERE id = ?",
-                placeAddress.getCountry(), placeAddress.getCity(), placeAddress.getStreetName(), placeAddress.getStreetNumber(),
-                placeAddress.getZipCode(), placeAddress.getPhone(), placeAddress.getId());
-
-        return 1;
-    }
 }
 

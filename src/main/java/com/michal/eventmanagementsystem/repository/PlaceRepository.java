@@ -1,32 +1,27 @@
 package com.michal.eventmanagementsystem.repository;
 
 import com.michal.eventmanagementsystem.model.Place;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.michal.eventmanagementsystem.model.PlaceAddress;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class PlaceRepository {
+public interface PlaceRepository extends JpaRepository<Place, Long> {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    List<Place> findAll();
 
+    @Override
+    Optional<Place> findById(Long id);
 
-    public int saveAll(List<Place> placeList) {
-        placeList.forEach(place ->
-            jdbcTemplate.update("INSERT INTO place (place_address_id, place_name, description) VALUES (?, ?, ?)",
-                    place.getPlaceAddressId(), place.getPlaceName(), place.getDescription()));
-        return 1;
-    }
+    Place save(Place place);
 
-    public int saveAll1(List<Place> placeList) {
-        placeList.forEach(place ->
-                jdbcTemplate.update("INSERT INTO place (place_name, description) VALUES (?, ?, ?)",
-                        place.getPlaceName(), place.getDescription()));
-        return 1;
-    }
+    Place getById(Long id);
 
+    void deleteById(Long id);
+
+    void deleteAll();
 }

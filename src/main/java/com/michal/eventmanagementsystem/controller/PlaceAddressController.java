@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/placeAddress")
@@ -15,40 +16,33 @@ public class PlaceAddressController {
     PlaceAddressRepository placeAddressRepository;
 
     @GetMapping("/all")
-    public List<PlaceAddress> getAll() {
-        return placeAddressRepository.getAll();
+    public List<PlaceAddress> findAll() {
+        return placeAddressRepository.findAll();
     }
 
-    /*
-     * get pace address by id
-     * */
     @GetMapping("/{id}")
-    public PlaceAddress getById(@PathVariable("id") int id) {
-        return placeAddressRepository.getById(id);
+    public Optional<PlaceAddress> findById(@PathVariable Long id) {
+        return placeAddressRepository.findById(id);
     }
 
-    /*delete placeAddress by id*/
     @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable("id") int id) {
+    public void deleteById(@PathVariable("id") Long id) {
         placeAddressRepository.deleteById(id);
     }
 
-    /*delete all placeAddress*/
     @DeleteMapping("/deleteAll")
     public void deleteAll() {
         placeAddressRepository.deleteAll();
     }
 
-    /*add new placeAddress*/
+    @PostMapping("/save")
+    public PlaceAddress save(@RequestBody PlaceAddress placeAddressList) {
+        return placeAddressRepository.save(placeAddressList);
 
-    @PostMapping("/add")
-    public int add(@RequestBody List<PlaceAddress> placeAddressList) {
-        return placeAddressRepository.add(placeAddressList);
     }
 
-    /*put placeAddress*/
     @PutMapping("/{id}")
-    public int update(@PathVariable("id") int id, @RequestBody PlaceAddress updatePlaceAddress) {
+    public int save(@PathVariable("id") Long id, @RequestBody PlaceAddress updatePlaceAddress) {
         PlaceAddress placeAddress = placeAddressRepository.getById(id);
 
         if (placeAddress != null) {
@@ -58,16 +52,15 @@ public class PlaceAddressController {
             placeAddress.setZipCode(updatePlaceAddress.getZipCode());
             placeAddress.setPhone(updatePlaceAddress.getPhone());
 
-            placeAddressRepository.update(placeAddress);
+            placeAddressRepository.save(placeAddress);
             return 1;
         } else {
             return 0;
         }
     }
 
-    /*patch placeAddress*/
     @PatchMapping("/{id}")
-    public int patch(@PathVariable("id") int id, @RequestBody PlaceAddress updatePlaceAddress) {
+    public int patch(@PathVariable("id") Long id, @RequestBody PlaceAddress updatePlaceAddress) {
         PlaceAddress placeAddress = placeAddressRepository.getById(id);
 
         if (placeAddress != null) {
@@ -90,7 +83,7 @@ public class PlaceAddressController {
                 placeAddress.setPhone(updatePlaceAddress.getPhone());
             }
 
-            placeAddressRepository.update(placeAddress);
+            placeAddressRepository.save(placeAddress);
             return 1;
         }else {
             return 0;
