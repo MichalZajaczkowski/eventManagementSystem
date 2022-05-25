@@ -20,7 +20,7 @@ public interface PlaceAddressRepository extends JpaRepository<PlaceAddress, Long
     @Override
     Optional<PlaceAddress> findById(Long aLong);
 
-    PlaceAddress save(PlaceAddress placeAddressList);
+    PlaceAddress save(PlaceAddress placeAddress);
 
     PlaceAddress getById(Long id);
 

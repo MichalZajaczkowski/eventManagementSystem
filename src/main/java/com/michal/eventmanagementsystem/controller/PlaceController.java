@@ -3,6 +3,7 @@ package com.michal.eventmanagementsystem.controller;
 
 import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
+import com.michal.eventmanagementsystem.service.PlaceAddressService;
 import com.michal.eventmanagementsystem.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class PlaceController {
 
     PlaceService placeService;
+    PlaceAddressService placeAddressService;
 
     @Autowired
     public PlaceController(PlaceService placeService) {
@@ -46,27 +48,46 @@ public class PlaceController {
 
     //create Place and save it to database with id from placeAddress
     @PostMapping("/{id}")
-    public ResponseEntity<String> save(@RequestBody Place place, @PathVariable("id") PlaceAddress id) {
+    public ResponseEntity<String> save(@RequestBody Place place, @PathVariable PlaceAddress id) {
         place.setPlaceAddressId(id);
-        if (place.getPlaceAddressId().getId() == null) {
-            return new ResponseEntity<>("PlaceAddressId is null", HttpStatus.BAD_REQUEST);
+        if (placeService.findById(id.getId()).isEmpty()) {
+            return new ResponseEntity<>("PlaceAddressId is null", HttpStatus.NOT_FOUND);
         }
+        placeService.save(place);
         return new ResponseEntity<>("Place created", HttpStatus.CREATED);
+
     }
 
     // update place name and place description, take placeAddress id, when palce id is not found return invalid query
     @PutMapping("/{id}")
-    public ResponseEntity<String> save(@RequestBody Place placeChange, @PathVariable("id") Long id, PlaceAddress placeAddress) {
+    public ResponseEntity<String> update(@RequestBody Place placeChange, @PathVariable("id") Long id, PlaceAddress placeAddress) {
         Place place = placeService.getById(id);
-        if (place.getId() == null || place.getPlaceAddressId() == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Place or place Address with id " + id + " not found");
+        if (placeService.getById(id) == null || placeAddress.getId() == null) {
+            return new ResponseEntity<>("Place or place Address with id " + id + " not found", HttpStatus.NOT_FOUND);
         } else {
             place.setPlaceName(placeChange.getPlaceName());
             place.setDescription(placeChange.getDescription());
             placeAddress.setId(place.getPlaceAddressId().getId());
+            placeService.save(place);
             return new ResponseEntity<>("Place updated", HttpStatus.OK);
+
         }
     }
+
+    /** change place address id in place*/
+    @PutMapping("/changePlaceAddress/{id}")
+    public ResponseEntity<String> changePlaceAddress(@RequestBody Place place, @PathVariable("id") Long id, PlaceAddress placeAddress) {
+        Place place1 = placeService.getById(id);
+        if (placeService.getById(id) == null || placeAddress.getId() == null) {
+            return new ResponseEntity<>("Place or place Address with id " + id + " not found", HttpStatus.NOT_FOUND);
+        } else {
+            place1.setPlaceAddressId(place.getPlaceAddressId());
+            placeService.save(place1);
+            return new ResponseEntity<>("Place updated", HttpStatus.OK);
+
+        }
+    }
+
 
 /*    @PatchMapping("/{id}")
     public ResponseEntity updatePlaceElement(@PathVariable("id") Long id, @RequestBody Place updatePlace) {

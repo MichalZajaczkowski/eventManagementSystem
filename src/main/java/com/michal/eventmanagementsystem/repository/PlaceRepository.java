@@ -14,7 +14,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     List<Place> findAll();
 
-    @Override
     Optional<Place> findById(Long id);
 
     Place save(Place place);
@@ -24,4 +23,5 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     void deleteById(Long id);
 
     void deleteAll();
+
 }

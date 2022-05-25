@@ -2,9 +2,9 @@ package com.michal.eventmanagementsystem.service;
 
 
 import com.michal.eventmanagementsystem.model.Place;
-import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -48,11 +48,7 @@ public class PlaceService {
         return placeRepository.getById(id);
     }
 
-    public ResponseEntity save(Place place) {
-        return ResponseEntity.ok(placeRepository.save(place));
-    }
-
-    public Object save1(Place place) {
-        return placeRepository.save(place);
+    public void save(Place place) {
+        placeRepository.save(place);
     }
 }
