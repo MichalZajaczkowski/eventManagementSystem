@@ -19,7 +19,7 @@ public class Place {
 
     @OneToOne
     @JoinColumn(name = "place_address_id")
-    private PlaceAddress placeAddressId;
+    private PlaceAddress placeAddress;
 
     @Column(name = "place_name")
     private String placeName;

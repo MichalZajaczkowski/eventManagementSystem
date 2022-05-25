@@ -4,8 +4,6 @@ package com.michal.eventmanagementsystem.service;
 import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -20,11 +18,6 @@ public class PlaceService {
     @Autowired
     public PlaceService(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
-    }
-
-    public ResponseEntity createPlace(Place place) {
-        URI location = URI.create(String.format("/places/%s", place.getPlaceName()));
-        return ResponseEntity.created(location).body(placeRepository.save(place));
     }
 
     public List<Place> findAll() {
