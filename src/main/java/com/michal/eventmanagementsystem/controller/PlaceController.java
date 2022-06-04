@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.apache.logging.log4j.ThreadContext.isEmpty;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/place")
@@ -51,50 +52,12 @@ public class PlaceController {
     public ResponseEntity<String> save(@RequestBody Place place) {
         placeService.save(place);
         return ResponseEntity.status(HttpStatus.CREATED).body("Place with id: " + place.getId() + " was created");
-/*        if (place.getPlaceAddress().getId() == null || place.getId() == null ||
-                place.getPlaceAddress().getId() == 0 || place.getId() == 0 ||
-                !placeService.findById(place.getPlaceAddress().getId()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Place was not created");
-        } else {
-            placeService.save(place);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Place with id: " + place.getId() + " was created");
-        }*/
     }
 
-    // update place name and place description, take placeAddress id, when palce id is not found return invalid query
     @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody Place placeChange) {
-        placeService.save(placeChange);
-        return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + placeChange.getId() + " was updated");
-/*        Place place = placeService.getById(id);
-        if (place == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Place with id: " + id + " was not found");
-        } else {
-            place.setPlaceName(placeChange.getPlaceName());
-            place.setDescription(placeChange.getDescription());
-            placeService.save(place);
-            return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
-        }*/
+    public ResponseEntity<String> update(@RequestBody Place place) {
+        placeService.update(place);
+        return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
     }
 
-
-    @PatchMapping("/update")
-    public ResponseEntity updatePlaceElement(@RequestBody Place updatePlace) {
-        Place place = placeService.getById(updatePlace.getId());
-        if (place == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Place with id: " + updatePlace.getId() + " was not found");
-        } else {
-            if (updatePlace.getPlaceName() != null) {
-                place.setPlaceName(updatePlace.getPlaceName());
-            }
-            if (updatePlace.getDescription() != null) {
-                place.setDescription(updatePlace.getDescription());
-            }
-            if (updatePlace.getPlaceAddress() != null) {
-                place.setPlaceAddress(updatePlace.getPlaceAddress());
-            }
-            placeService.save(place);
-            return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
-        }
-    }
 }

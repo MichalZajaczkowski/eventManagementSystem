@@ -1,9 +1,7 @@
 package com.michal.eventmanagementsystem.repository;
 
 import com.michal.eventmanagementsystem.model.Place;
-import com.michal.eventmanagementsystem.model.PlaceAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
