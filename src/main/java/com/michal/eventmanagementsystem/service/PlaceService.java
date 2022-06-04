@@ -1,17 +1,11 @@
 package com.michal.eventmanagementsystem.service;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.michal.eventmanagementsystem.model.Place;
-import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 

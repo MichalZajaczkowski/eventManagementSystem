@@ -26,4 +26,7 @@ public class Place {
 
     @Column(name = "description")
     private String description;
+
+    public Place(String placeAddress, String placeName, String description) {
+    }
 }

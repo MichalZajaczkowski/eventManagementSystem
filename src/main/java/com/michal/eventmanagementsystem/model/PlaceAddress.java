@@ -33,4 +33,8 @@ public class PlaceAddress {
 
     @Column(name = "phone")
     private String phone;
+
+    public PlaceAddress(String country, String city, String streetName, String streetNumber, String zipCode, String phone) {
+
+    }
 }

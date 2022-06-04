@@ -1,9 +1,6 @@
 package com.michal.eventmanagementsystem.controller;
 
-
 import com.michal.eventmanagementsystem.model.Place;
-import com.michal.eventmanagementsystem.model.PlaceAddress;
-import com.michal.eventmanagementsystem.service.PlaceAddressService;
 import com.michal.eventmanagementsystem.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/place")
