@@ -59,5 +59,4 @@ public class PlaceController {
         placeService.update(place);
         return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
     }
-
 }
