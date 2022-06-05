@@ -1,11 +1,13 @@
 package com.michal.eventmanagementsystem.dto;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
+@EqualsAndHashCode
 public class PlaceAddressDto {
 
     private JsonNullable<String> country;
@@ -15,14 +17,6 @@ public class PlaceAddressDto {
     private JsonNullable<String> zipCode;
     private JsonNullable<String> phone;
 
-    public PlaceAddressDto(JsonNullable<String> country, JsonNullable<String> city, JsonNullable<String> streetName, JsonNullable<String> streetNumber, JsonNullable<String> zipCode, JsonNullable<String> phone) {
-        this.country = country;
-        this.city = city;
-        this.streetName = streetName;
-        this.streetNumber = streetNumber;
-        this.zipCode = zipCode;
-        this.phone = phone;
-    }
 
     public boolean hasCountry() {
         return country != null && country.isPresent();

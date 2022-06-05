@@ -15,7 +15,7 @@ public interface PlaceAddressMapper {
     @Mapping(source = "streetNumber", target = "streetNumber", qualifiedByName = "unwrap")
     @Mapping(source = "zipCode", target = "zipCode", qualifiedByName = "unwrap")
     @Mapping(source = "phone", target = "phone", qualifiedByName = "unwrap")
-    PlaceAddress mapPlaceAddress(PlaceAddressDto entity);
+    PlaceAddress placeAddressDtoToPlaceAddress(PlaceAddressDto placeAddressDto);
 
     @Mapping(source = "country", target = "country", qualifiedByName = "wrap")
     @Mapping(source = "city", target = "city", qualifiedByName = "wrap")
@@ -23,7 +23,7 @@ public interface PlaceAddressMapper {
     @Mapping(source = "streetNumber", target = "streetNumber", qualifiedByName = "wrap")
     @Mapping(source = "zipCode", target = "zipCode", qualifiedByName = "wrap")
     @Mapping(source = "phone", target = "phone", qualifiedByName = "wrap")
-    PlaceAddressDto mapPlaceAddress(PlaceAddress entity);
+    PlaceAddressDto placeAddressToPlaceAddressDto(PlaceAddress placeAddress);
 
     @InheritConfiguration
     @Mapping(target = "id", ignore = true)

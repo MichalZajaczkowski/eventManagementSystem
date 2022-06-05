@@ -14,28 +14,26 @@ public class PlaceMapperImpl implements PlaceMapper {
     @Autowired
     private JsonNullableMapper jsonNullableMapper;
 
-
-    @Override
-    public Place map(PlaceDto entity) {
-        if (entity == null) {
+    public Place PlaceDtoToPlace(PlaceDto placeDto) {
+        if (placeDto == null) {
             return null;
         }
 
         String description = null;
         String placeName = null;
-        String placeAddress = null;
+        PlaceAddress placeAddress = null;
 
-        description = jsonNullableMapper.unwrap(entity.getDescription());
-        placeName = jsonNullableMapper.unwrap(entity.getPlaceName());
-        placeAddress = String.valueOf(jsonNullableMapper.unwrap2(entity.getPlaceAddress()));
+        description = jsonNullableMapper.unwrap(placeDto.getDescription());
+        placeName = jsonNullableMapper.unwrap(placeDto.getPlaceName());
+        placeAddress = jsonNullableMapper.unwrap2(placeDto.getPlaceAddress());
 
         Place place = new Place(placeAddress, placeName, description);
         return place;
     }
 
     @Override
-    public PlaceDto map(Place entity) {
-        if (entity == null) {
+    public PlaceDto placeToPlaceDto(Place place) {
+        if (place == null) {
             return null;
         }
 
@@ -43,9 +41,9 @@ public class PlaceMapperImpl implements PlaceMapper {
         JsonNullable<String> placeName = null;
         JsonNullable<PlaceAddress> placeAddress = null;
 
-        description = jsonNullableMapper.wrap(entity.getDescription());
-        placeName = jsonNullableMapper.wrap(entity.getPlaceName());
-        placeAddress = jsonNullableMapper.wrap2(entity.getPlaceAddress());
+        description = jsonNullableMapper.wrap(place.getDescription());
+        placeName = jsonNullableMapper.wrap(place.getPlaceName());
+        placeAddress = jsonNullableMapper.wrap2(place.getPlaceAddress());
 
         PlaceDto placeDto = new PlaceDto(placeAddress, placeName, description);
         return placeDto;

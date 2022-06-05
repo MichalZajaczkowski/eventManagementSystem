@@ -17,12 +17,12 @@ public interface JsonNullableMapper {
         return JsonNullable.of(entity);
     }
 
-    @Named("unwrap")
+    @Named("unwrap2")
     default PlaceAddress unwrap2(JsonNullable<PlaceAddress> nullable) {
         return nullable.orElse(null);
     }
 
-    @Named("wrap")
+    @Named("wrap2")
     default JsonNullable<PlaceAddress> wrap2(PlaceAddress entity) {
         return JsonNullable.of(entity);
     }

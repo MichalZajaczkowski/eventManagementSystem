@@ -13,8 +13,8 @@ public class PlaceAddressMapperImpl  implements PlaceAddressMapper {
     private JsonNullableMapper jsonNullableMapper;
 
     @Override
-    public PlaceAddress mapPlaceAddress(PlaceAddressDto entity) {
-        if (entity == null) {
+    public PlaceAddress placeAddressDtoToPlaceAddress(PlaceAddressDto placeAddressDto) {
+        if (placeAddressDto == null) {
             return null;
         }
 
@@ -25,20 +25,20 @@ public class PlaceAddressMapperImpl  implements PlaceAddressMapper {
         String zipCode = null;
         String phone = null;
 
-        country = jsonNullableMapper.unwrap(entity.getCountry());
-        city = jsonNullableMapper.unwrap(entity.getCity());
-        streetName = jsonNullableMapper.unwrap(entity.getStreetName());
-        streetNumber = jsonNullableMapper.unwrap(entity.getStreetNumber());
-        zipCode = jsonNullableMapper.unwrap(entity.getZipCode());
-        phone = jsonNullableMapper.unwrap(entity.getPhone());
+        country = jsonNullableMapper.unwrap(placeAddressDto.getCountry());
+        city = jsonNullableMapper.unwrap(placeAddressDto.getCity());
+        streetName = jsonNullableMapper.unwrap(placeAddressDto.getStreetName());
+        streetNumber = jsonNullableMapper.unwrap(placeAddressDto.getStreetNumber());
+        zipCode = jsonNullableMapper.unwrap(placeAddressDto.getZipCode());
+        phone = jsonNullableMapper.unwrap(placeAddressDto.getPhone());
 
         PlaceAddress placeAddress = new PlaceAddress(country, city, streetName, streetNumber, zipCode, phone);
         return placeAddress;
     }
 
     @Override
-    public PlaceAddressDto mapPlaceAddress(PlaceAddress entity) {
-        if (entity == null) {
+    public PlaceAddressDto placeAddressToPlaceAddressDto(PlaceAddress placeAddress) {
+        if (placeAddress == null) {
             return null;
         }
 
@@ -49,12 +49,12 @@ public class PlaceAddressMapperImpl  implements PlaceAddressMapper {
         JsonNullable<String> zipCode = null;
         JsonNullable<String> phone = null;
 
-        country = jsonNullableMapper.wrap(entity.getCountry());
-        city = jsonNullableMapper.wrap(entity.getCity());
-        streetName = jsonNullableMapper.wrap(entity.getStreetName());
-        streetNumber = jsonNullableMapper.wrap(entity.getStreetNumber());
-        zipCode = jsonNullableMapper.wrap(entity.getZipCode());
-        phone = jsonNullableMapper.wrap(entity.getPhone());
+        country = jsonNullableMapper.wrap(placeAddress.getCountry());
+        city = jsonNullableMapper.wrap(placeAddress.getCity());
+        streetName = jsonNullableMapper.wrap(placeAddress.getStreetName());
+        streetNumber = jsonNullableMapper.wrap(placeAddress.getStreetNumber());
+        zipCode = jsonNullableMapper.wrap(placeAddress.getZipCode());
+        phone = jsonNullableMapper.wrap(placeAddress.getPhone());
 
         PlaceAddressDto placeAddressDto = new PlaceAddressDto(country, city, streetName, streetNumber, zipCode, phone);
         return placeAddressDto;
