@@ -1,5 +1,7 @@
 package com.michal.eventmanagementsystem.service;
 
+import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
+import com.michal.eventmanagementsystem.mapper.PlaceAddressMapper;
 import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
@@ -12,10 +14,11 @@ import java.util.Optional;
 @Service
 public class PlaceAddressService {
 
+    PlaceAddressMapper placeAddressMapper;
     PlaceAddressRepository placeAddressRepository;
 
-    @Autowired
-    public PlaceAddressService(PlaceAddressRepository placeAddressRepository) {
+    public PlaceAddressService(PlaceAddressMapper placeAddressMapper, PlaceAddressRepository placeAddressRepository) {
+        this.placeAddressMapper = placeAddressMapper;
         this.placeAddressRepository = placeAddressRepository;
     }
 
@@ -42,4 +45,17 @@ public class PlaceAddressService {
     public void save(PlaceAddress placeAddress) {
         placeAddressRepository.save(placeAddress);
     }
+
+    public PlaceAddressDto updatePlaceAddress(Long id, PlaceAddress placeAddressUpdate) {
+        PlaceAddress placeAddress = placeAddressRepository.findById(id).<RuntimeException>orElseThrow(() -> {
+            throw new RuntimeException("PlaceAddress not found");
+        });
+        placeAddressMapper.updatePlaceAddress(placeAddressUpdate, placeAddress);
+        placeAddressRepository.save(placeAddress);
+
+
+        return placeAddressMapper.placeAddressToPlaceAddressDto(placeAddress);
+    }
+
 }
+

@@ -67,7 +67,7 @@ public class PlaceAddressController {
         }
     }
 
-    @PatchMapping("/{id}")
+/*    @PatchMapping("/{id}")
     public int patch(@PathVariable("id") Long id, @RequestBody PlaceAddress updatePlaceAddress) {
         PlaceAddress placeAddress = placeAddressService.getById(id);
 
@@ -96,5 +96,5 @@ public class PlaceAddressController {
         }else {
             return 0;
         }
-    }
+    }*/
 }

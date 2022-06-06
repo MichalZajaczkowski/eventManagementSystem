@@ -1,4 +1,4 @@
-package mapper;
+package com.michal.eventmanagementsystem.mapper;
 
 import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.model.Place;

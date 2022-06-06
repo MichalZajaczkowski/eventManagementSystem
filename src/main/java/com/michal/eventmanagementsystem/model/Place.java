@@ -26,10 +26,4 @@ public class Place {
 
     @Column(name = "description")
     private String description;
-
-    public Place(PlaceAddress placeAddress, String placeName, String description) {
-        this.placeAddress = placeAddress;
-        this.placeName = placeName;
-        this.description = description;
-    }
 }

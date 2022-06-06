@@ -3,6 +3,7 @@ package com.michal.eventmanagementsystem.dto;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

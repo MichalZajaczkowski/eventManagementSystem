@@ -5,13 +5,14 @@ import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.Objects;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 public class PlaceDto {
-
+    private Long id;
     private JsonNullable<PlaceAddress> placeAddress;
     private JsonNullable<String> placeName;
     private JsonNullable<String> description;

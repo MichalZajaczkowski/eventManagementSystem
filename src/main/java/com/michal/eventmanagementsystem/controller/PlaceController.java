@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.controller;
 
+import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,11 @@ public class PlaceController {
         placeService.update(place);
         return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
     }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody PlaceDto placeDto) {
+        placeService.update(id, placeDto);
+        return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + id + " was updated");
+    }
+
 }
