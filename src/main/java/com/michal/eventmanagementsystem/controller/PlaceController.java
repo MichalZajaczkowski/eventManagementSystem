@@ -55,10 +55,10 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + place.getId() + " was updated");
     }
 
-    @PatchMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody PlaceDto placeDto) {
-        placeService.update(id, placeDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + id + " was updated");
+    @PatchMapping("/update")
+    public ResponseEntity<String> partialUpdate(@RequestBody PlaceDto placeDto) {
+        placeService.partialUpdate(placeDto);
+        return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + placeDto.getId() + " was updated");
     }
 
 }

@@ -16,7 +16,6 @@ public interface PlaceAddressMapper {
     @Mapping(source = "zipCode", target = "zipCode", qualifiedByName = "unwrap")
     @Mapping(source = "phone", target = "phone", qualifiedByName = "unwrap")
     PlaceAddress placeAddressDtoToPlaceAddress(PlaceAddressDto placeAddressDto);
-
     @Mapping(source = "country", target = "country", qualifiedByName = "wrap")
     @Mapping(source = "city", target = "city", qualifiedByName = "wrap")
     @Mapping(source = "streetName", target = "streetName", qualifiedByName = "wrap")

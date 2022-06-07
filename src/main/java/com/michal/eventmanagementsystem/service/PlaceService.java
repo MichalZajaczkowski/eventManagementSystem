@@ -3,10 +3,11 @@ package com.michal.eventmanagementsystem.service;
 import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.mapper.PlaceMapper;
 import com.michal.eventmanagementsystem.model.Place;
+import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +19,11 @@ public class PlaceService {
     PlaceAddressRepository placeAddressRepository;
 
 
-
     public PlaceService(PlaceMapper mapper, PlaceRepository placeRepository, PlaceAddressRepository placeAddressRepository) {
         this.mapper = mapper;
         this.placeRepository = placeRepository;
         this.placeAddressRepository = placeAddressRepository;
-   }
+    }
 
     public List<Place> findAll() {
         return placeRepository.findAll();
@@ -60,6 +60,7 @@ public class PlaceService {
         }
     }
 
+
     public void update(Place place) {
         if (place.getPlaceAddress() == null && place.getPlaceAddress().getId() == null) {
             Long id = place.getPlaceAddress().getId();
@@ -74,15 +75,24 @@ public class PlaceService {
         }
     }
 
-    public PlaceDto update(Long id, PlaceDto update) {
-        Place place = placeRepository.findById(id).<RuntimeException>orElseThrow(() -> {
-            throw new RuntimeException("Product with id <" + id + "> not found.");
-        });
 
-        mapper.update(update, place);
-        placeRepository.save(place);
+    public void partialUpdate(PlaceDto placeDto) {
+        Place place = placeRepository.findById(placeDto.getId()).orElse(null);
+        if (place != null) {
+            if (placeDto.getPlaceName() != null) {
+                place.setPlaceName2(placeDto.getPlaceName());
+            }
+            if (placeDto.getDescription() != null) {
+                place.setDescription2(placeDto.getDescription());
+            }
+            if (placeDto.getPlaceAddress() != null) {
+                PlaceAddress placeAddress = placeAddressRepository.findById(placeDto.getPlaceAddress().getId()).orElse(null);
+                if (placeAddress != null) {
+                    place.setPlaceAddress(placeAddress);
+                }
+            }
+            placeRepository.save(place);
+        }
 
-        return mapper.placeToPlaceDto(place);
     }
 }
-

@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.controller;
 
+import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.service.PlaceAddressService;

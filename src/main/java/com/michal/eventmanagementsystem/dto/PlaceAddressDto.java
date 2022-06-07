@@ -11,6 +11,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @EqualsAndHashCode
 public class PlaceAddressDto {
 
+    private Long id;
     private JsonNullable<String> country;
     private JsonNullable<String> city;
     private JsonNullable<String> streetName;

@@ -46,7 +46,7 @@ public class PlaceAddressService {
         placeAddressRepository.save(placeAddress);
     }
 
-    public PlaceAddressDto updatePlaceAddress(Long id, PlaceAddress placeAddressUpdate) {
+    public PlaceAddressDto updatePlaceAddress(Long id, PlaceAddressDto placeAddressUpdate) {
         PlaceAddress placeAddress = placeAddressRepository.findById(id).<RuntimeException>orElseThrow(() -> {
             throw new RuntimeException("PlaceAddress not found");
         });
