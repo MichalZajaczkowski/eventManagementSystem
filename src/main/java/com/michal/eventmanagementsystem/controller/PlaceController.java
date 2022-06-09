@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class PlaceController {
 
     //create Place and save it to database with id from placeAddress
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Place place) {
+    public ResponseEntity<String> save(@Valid @RequestBody Place place) {
         placeService.save(place);
         return ResponseEntity.status(HttpStatus.CREATED).body("Place with id: " + place.getId() + " was created");
     }

@@ -1,8 +1,8 @@
 package com.michal.eventmanagementsystem.controller;
 
 import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
+import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
-import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.service.PlaceAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,52 +50,16 @@ public class PlaceAddressController {
 
     }
 
-    @PutMapping("/{id}")
-    public int save(@PathVariable("id") Long id, @RequestBody PlaceAddress updatePlaceAddress) {
-        PlaceAddress placeAddress = placeAddressService.getById(id);
+    @PutMapping("/updatePlaceAddress")
+    public ResponseEntity<String> update(@RequestBody PlaceAddress placeAddress) {
+        placeAddressService.update(placeAddress);
+        return ResponseEntity.status(HttpStatus.OK).body("PlaceAddress with id: " + placeAddress.getId() + " was updated");
 
-        if (placeAddress != null) {
-            placeAddress.setCountry(updatePlaceAddress.getCountry());
-            placeAddress.setCity(updatePlaceAddress.getCity());
-            placeAddress.setStreetName(updatePlaceAddress.getStreetName());
-            placeAddress.setZipCode(updatePlaceAddress.getZipCode());
-            placeAddress.setPhone(updatePlaceAddress.getPhone());
-
-            placeAddressService.save(placeAddress);
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
-/*    @PatchMapping("/{id}")
-    public int patch(@PathVariable("id") Long id, @RequestBody PlaceAddress updatePlaceAddress) {
-        PlaceAddress placeAddress = placeAddressService.getById(id);
-
-        if (placeAddress != null) {
-            if (updatePlaceAddress.getCountry() != null) {
-                placeAddress.setCountry(updatePlaceAddress.getCountry());
-            }
-            if (updatePlaceAddress.getCity() != null) {
-                placeAddress.setCity(updatePlaceAddress.getCity());
-            }
-            if (updatePlaceAddress.getStreetName() != null) {
-                placeAddress.setStreetNumber(updatePlaceAddress.getStreetNumber());
-            }
-            if (updatePlaceAddress.getStreetNumber() != null) {
-                placeAddress.setStreetNumber(updatePlaceAddress.getStreetNumber());
-            }
-            if (updatePlaceAddress.getZipCode() != null) {
-                placeAddress.setZipCode(updatePlaceAddress.getZipCode());
-            }
-            if (updatePlaceAddress.getPhone() != null) {
-                placeAddress.setPhone(updatePlaceAddress.getPhone());
-            }
-
-            placeAddressService.save(placeAddress);
-            return 1;
-        }else {
-            return 0;
-        }
-    }*/
+    @PatchMapping("/updatePlaceAddress")
+    public ResponseEntity<String> partialUpdate(@RequestBody PlaceAddressDto placeAddressDto) {
+        placeAddressService.partialUpdate(placeAddressDto);
+        return ResponseEntity.status(HttpStatus.OK).body("PlaceAddress with id: " + placeAddressDto.getId() + " was updated");
+    }
 }

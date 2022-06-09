@@ -33,5 +33,6 @@ public class Place {
     }
 
     public void setDescription2(JsonNullable<String> description) {
+        this.description = description.orElse(null);
     }
 }
