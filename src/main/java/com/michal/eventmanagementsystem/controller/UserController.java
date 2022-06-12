@@ -5,12 +5,11 @@ import com.michal.eventmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -23,9 +22,27 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/all")
+    public List<User> findAll() {
+        return userService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<String> findById(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        return user.map(value -> ResponseEntity.status(HttpStatus.OK).body("User with id: " + user.get().getId() + " was found"))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id: " + id + " was not found"));
+    }
+
     @PostMapping("/save")
     public ResponseEntity<String> save(@Valid @RequestBody User user) {
         userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User with id: " + user.getId() + " was created");
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> update(@RequestBody User user) {
+        userService.update(user);
+        return ResponseEntity.status(HttpStatus.OK).body("User with id: " + user.getId() + " was updated");
     }
 }

@@ -1,6 +1,5 @@
 package com.michal.eventmanagementsystem.repository;
 
-import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.model.UserAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,9 +11,9 @@ import java.util.Optional;
 public interface UserAddressRepository extends JpaRepository<UserAddress, Long> {
     List<UserAddress> findAll();
 
-    Optional<UserAddress> findById(Long id);
+    Optional<UserAddress> findById(Long aLong);
 
-    Place save(Place place);
+    UserAddress save(UserAddress userAddress);
 
     UserAddress getById(Long id);
 

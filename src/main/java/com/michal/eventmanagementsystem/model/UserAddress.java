@@ -1,10 +1,14 @@
 package com.michal.eventmanagementsystem.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "user_address")
 public class UserAddress {

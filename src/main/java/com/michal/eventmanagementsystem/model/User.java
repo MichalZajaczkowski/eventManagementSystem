@@ -15,7 +15,7 @@ public class User {
     @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_address_id")
     private UserAddress userAddress;
 

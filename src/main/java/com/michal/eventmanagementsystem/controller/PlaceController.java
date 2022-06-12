@@ -33,16 +33,6 @@ public class PlaceController {
         return placeService.findById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable("id") Long id) {
-        placeService.deleteById(id);
-    }
-
-    @DeleteMapping("/deleteAll")
-    public void deleteAll() {
-        placeService.deleteAll();
-    }
-
     //create Place and save it to database with id from placeAddress
     @PostMapping("/save")
     public ResponseEntity<String> save(@Valid @RequestBody Place place) {
@@ -60,6 +50,16 @@ public class PlaceController {
     public ResponseEntity<String> partialUpdate(@RequestBody PlaceDto placeDto) {
         placeService.partialUpdate(placeDto);
         return ResponseEntity.status(HttpStatus.OK).body("Place with id: " + placeDto.getId() + " was updated");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        placeService.deleteById(id);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public void deleteAll() {
+        placeService.deleteAll();
     }
 
 }

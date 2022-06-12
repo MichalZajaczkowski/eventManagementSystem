@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.service;
 
+import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
 import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.mapper.PlaceMapper;
 import com.michal.eventmanagementsystem.model.Place;
@@ -8,6 +9,8 @@ import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,4 +98,16 @@ public class PlaceService {
         }
 
     }
+//
+//    private boolean isExistingId(Long id) {
+//        List<PlaceAddressDto> placeAddressesDto = new ArrayList<>();
+//        // Iterates all the users
+//        for (PlaceAddressDto placeAddress: placeAddressesDto) {
+//            // Checks if the user email is equal to the email parameter
+//            if (placeAddress.getId().equals(id)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }
