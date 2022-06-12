@@ -16,19 +16,19 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "place_id")
-    private Place placeId;
+    private Place place;
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
-    private Organizer organizerId;
+    private Organizer organizer;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
-    private Status statusId;
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 
     @Column(name = "name")
     private String name;

@@ -19,8 +19,8 @@ public class User {
     @JoinColumn(name = "user_address_id")
     private UserAddress userAddress;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
 
     @Column(name = "surname", nullable = false)
     private String surname;
