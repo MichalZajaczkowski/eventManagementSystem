@@ -57,9 +57,4 @@ public class PlaceController {
         placeService.deleteById(id);
     }
 
-    @DeleteMapping("/deleteAll")
-    public void deleteAll() {
-        placeService.deleteAll();
-    }
-
 }

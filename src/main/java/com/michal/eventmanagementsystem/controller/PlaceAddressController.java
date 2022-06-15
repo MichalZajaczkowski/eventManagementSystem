@@ -38,11 +38,6 @@ public class PlaceAddressController {
         placeAddressService.deleteById(id);
     }
 
-    @DeleteMapping("/deleteAll")
-    public void deleteAll() {
-        placeAddressService.deleteAll();
-    }
-
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody PlaceAddress placeAddress) {
         placeAddressService.save(placeAddress);

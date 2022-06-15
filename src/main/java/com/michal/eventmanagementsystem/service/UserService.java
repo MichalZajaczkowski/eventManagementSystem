@@ -66,7 +66,7 @@ public class UserService {
 
     public void partialUpdate(UserDto userDto) {
         User user = userRepository.findById(userDto.getId()).orElse(null);
-        if(user != null) {
+        if (user != null) {
             if (userDto.getUserName() != null) {
                 user.setUserName2(userDto.getUserName());
             }
@@ -82,7 +82,7 @@ public class UserService {
             if (userDto.getPassword() != null) {
                 user.setPassword2(userDto.getPassword());
             }
-            if (userDto.getUserAddress() != null){
+            if (userDto.getUserAddress() != null) {
                 UserAddress userAddress = userAddressRepository.findById(userDto.getUserAddress().getId()).orElse(null);
                 if (userAddress != null) {
                     user.setUserAddress(userAddress);
@@ -90,5 +90,13 @@ public class UserService {
             }
             userRepository.save(user);
         }
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void deleteAll() {
+        userRepository.deleteAll();
     }
 }

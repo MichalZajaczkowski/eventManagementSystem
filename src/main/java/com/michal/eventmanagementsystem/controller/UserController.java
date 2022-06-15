@@ -52,4 +52,9 @@ public class UserController {
         userService.partialUpdate(userDto);
         return ResponseEntity.status(HttpStatus.OK).body("User with id: " + userDto.getId() + " was updated");
     }
+
+    @DeleteMapping("/delete")
+    public void deleteById(@PathVariable("id") Long id) {
+        userService.deleteById(id);
+    }
 }
