@@ -3,6 +3,7 @@ package com.michal.eventmanagementsystem.service;
 import com.michal.eventmanagementsystem.dto.UserDto;
 import com.michal.eventmanagementsystem.mapper.UserManager;
 import com.michal.eventmanagementsystem.model.User;
+import com.michal.eventmanagementsystem.model.UserAddress;
 import com.michal.eventmanagementsystem.repository.UserAddressRepository;
 import com.michal.eventmanagementsystem.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,34 @@ public class UserService {
                             }
                     );
         } else {
+            userRepository.save(user);
+        }
+    }
+
+    public void partialUpdate(UserDto userDto) {
+        User user = userRepository.findById(userDto.getId()).orElse(null);
+        if(user != null) {
+            if (userDto.getUserName() != null) {
+                user.setUserName2(userDto.getUserName());
+            }
+            if (userDto.getSurname() != null) {
+                user.setSurname2(userDto.getSurname());
+            }
+            if (userDto.getEmail() != null) {
+                user.setEmail2(userDto.getEmail());
+            }
+            if (userDto.getLogin() != null) {
+                user.setLogin2(userDto.getLogin());
+            }
+            if (userDto.getPassword() != null) {
+                user.setPassword2(userDto.getPassword());
+            }
+            if (userDto.getUserAddress() != null){
+                UserAddress userAddress = userAddressRepository.findById(userDto.getUserAddress().getId()).orElse(null);
+                if (userAddress != null) {
+                    user.setUserAddress(userAddress);
+                }
+            }
             userRepository.save(user);
         }
     }

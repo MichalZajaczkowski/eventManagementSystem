@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.controller;
 
+import com.michal.eventmanagementsystem.dto.UserDto;
 import com.michal.eventmanagementsystem.model.User;
 import com.michal.eventmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class UserController {
     public ResponseEntity<String> update(@RequestBody User user) {
         userService.update(user);
         return ResponseEntity.status(HttpStatus.OK).body("User with id: " + user.getId() + " was updated");
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<String> partialUpdate(@RequestBody UserDto userDto) {
+        userService.partialUpdate(userDto);
+        return ResponseEntity.status(HttpStatus.OK).body("User with id: " + userDto.getId() + " was updated");
     }
 }

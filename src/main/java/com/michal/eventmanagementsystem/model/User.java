@@ -1,6 +1,7 @@
 package com.michal.eventmanagementsystem.model;
 
 import lombok.Data;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -35,4 +36,24 @@ public class User {
     private String email;
 
 
+    public void setUserName2(JsonNullable<String> userName) {
+        this.userName = userName.orElse(null);
+    }
+
+        public void setSurname2(JsonNullable<String> surname2) {
+        this.surname = surname2.orElse(null);
+    }
+
+    public void setEmail2(JsonNullable<String> email) {
+        this.email = email.orElse(null);
+    }
+
+    public void setLogin2(JsonNullable<String> login) {
+        this.login = login.orElse(null);
+    }
+
+    public void setPassword2(JsonNullable<String> password) {
+        this.password = password.orElse(null);
+
+    }
 }
