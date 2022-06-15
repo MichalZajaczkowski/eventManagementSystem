@@ -1,6 +1,7 @@
 package com.michal.eventmanagementsystem.model;
 
 import lombok.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,4 +21,8 @@ public class Category {
 
     @NotNull(message = "Category name cannot be null")
     private String description;
+
+    public void setDescription2(JsonNullable<String> description) {
+        this.description = description.orElse(null);
+    }
 }

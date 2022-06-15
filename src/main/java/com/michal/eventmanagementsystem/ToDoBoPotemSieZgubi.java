@@ -12,4 +12,10 @@ public class ToDoBoPotemSieZgubi {
     //4. Jakaś warstwa pośrednia by się przydała nie stukamy z controllera do do repository tylko można jakiś pośredni service zrobić.
     //5. Przydało by się jakieś DTO i mapowanie żeby na front zwracać przekonwertowany obiekt a nie bazodanowa encje.
     // Czyli np w kontrolerze zwracasz PlaceAddressDTO i service malujesz PlaceAddress pobierane z repository na DTO.
+    //6. Możesz zrobić jakieś validacje
+    //7. Możesz zrobić jakieś wyjątki
+    //8. Możesz zrobić jakieś logi
+    //9. Możesz zrobić jakieś testy
+    //10. Do usunięcia "mapstruct" to by wypadało napisać z ręki
+
 }
