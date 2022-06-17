@@ -22,7 +22,4 @@ public class Category {
     @NotNull(message = "Category name cannot be null")
     private String description;
 
-    public void setDescription2(JsonNullable<String> description) {
-        this.description = description.orElse(null);
-    }
 }

@@ -1,10 +1,15 @@
 package com.michal.eventmanagementsystem.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "status")
 @Entity
 public class Status {
 

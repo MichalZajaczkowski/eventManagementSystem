@@ -34,7 +34,7 @@ public class CategoryService {
     }
 
     public void save(Category category) {
-if (category.getId() != null) {
+        if (category.getId() != null) {
             Long id = category.getId();
             categoryRepository.findById(id)
                     .ifPresent(category1 -> {
@@ -48,7 +48,7 @@ if (category.getId() != null) {
     }
 
     public void update(Category category) {
-        if (category.getId() == null) {
+        if (category.getId() != null) {
             Long id = category.getId();
             categoryRepository.findById(id)
                     .ifPresent(category1 -> {
@@ -56,18 +56,6 @@ if (category.getId() != null) {
                                 categoryRepository.save(category);
                             }
                     );
-        } else {
-            categoryRepository.save(category);
-        }
-    }
-
-
-    public void partialUpdate(CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(categoryDto.getId()).orElse(new Category());
-        if (category != null) {
-            if (categoryDto.getDescription() != null) {
-                category.setDescription2(categoryDto.getDescription());
-            }
         }
     }
 }

@@ -44,12 +44,4 @@ public class CategoryController {
         categoryService.update(category);
         return ResponseEntity.status(HttpStatus.OK).body("Category with id: " + category.getId() + " was updated");
     }
-
-    @PatchMapping("/update")
-    public ResponseEntity<String> partialUpdate(@RequestBody CategoryDto categoryDto) {
-        categoryService.partialUpdate(categoryDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Category with id: " + categoryDto.getId() + " was updated");
-    }
-
-
 }

@@ -40,14 +40,6 @@ public class PlaceService {
         placeRepository.deleteById(id);
     }
 
-    public void deleteAll() {
-        placeRepository.deleteAll();
-    }
-
-
-    public Place getById(Long id) {
-        return placeRepository.getById(id);
-    }
 
     public void save(Place place) {
         if (place.getPlaceAddress() != null && place.getPlaceAddress().getId() != null) {
