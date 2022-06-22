@@ -33,29 +33,38 @@ public class CategoryService {
         }
     }
 
-    public void save(Category category) {
-        if (category.getId() != null) {
-            Long id = category.getId();
+    public void save(CategoryDto categoryDto) {
+        if (categoryDto.getId() != null) {
+            Long id = categoryDto.getId();
             categoryRepository.findById(id)
                     .ifPresent(category1 -> {
-                                category.setId(id);
-                                categoryRepository.save(category);
+                                categoryDto.setId(id);
+                                categoryRepository.save(categoryDto.toCategory());
                             }
                     );
         } else {
-            categoryRepository.save(category);
+            categoryRepository.save(categoryDto.toCategory());
         }
     }
 
-    public void update(Category category) {
-        if (category.getId() != null) {
-            Long id = category.getId();
+    public void update(CategoryDto categoryDto) {
+        if (categoryDto.getId() != null) {
+            Long id = categoryDto.getId();
             categoryRepository.findById(id)
                     .ifPresent(category1 -> {
-                                category.setId(id);
-                                categoryRepository.save(category);
+                                categoryDto.setId(id);
+                                categoryRepository.save(categoryDto.toCategory());
                             }
                     );
         }
+    }
+
+    public void partialUpdate(CategoryDto categoryDto) {
+        Category category = categoryRepository.findById(categoryDto.getId()).orElse(new Category());
+        if (categoryDto.getDescription() != null) {
+            category.setDescription(categoryDto.getDescription().orElse(null));
+        }
+
+        categoryRepository.save(category);
     }
 }
