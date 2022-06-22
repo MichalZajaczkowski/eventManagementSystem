@@ -30,27 +30,28 @@ public class OrganizerService {
         }
     }
 
-    public void save(Organizer organizer) {
-        if (organizer.getId() != null) {
-            Long id = organizer.getId();
+    public void save(OrganizerDto organizerDto) {
+        //Organizer organizer = organizerRegistration.findById(organizerDto.getId()).orElse(new Organizer());
+        if (organizerDto.getId() != null) {
+            Long id = organizerDto.getId();
             organizerRegistration.findById(id)
                     .ifPresent(organizer1 -> {
-                                organizer.setId(id);
-                                organizerRegistration.save(organizer);
+                                organizerDto.setId(id);
+                                organizerRegistration.save(organizerDto.toOrganizer());
                             }
                     );
         } else {
-            organizerRegistration.save(organizer);
+            organizerRegistration.save(organizerDto.toOrganizer());
         }
     }
 
-    public void update(Organizer organizer) {
-        if (organizer.getId() != null) {
-            Long id = organizer.getId();
+    public void update(OrganizerDto organizerDto) {
+        if (organizerDto.getId() != null) {
+            Long id = organizerDto.getId();
             organizerRegistration.findById(id)
                     .ifPresent(organizer1 -> {
-                                organizer.setId(id);
-                                organizerRegistration.save(organizer);
+                                organizerDto.setId(id);
+                                organizerRegistration.save(organizerDto.toOrganizer());
                             }
                     );
         }
@@ -59,7 +60,7 @@ public class OrganizerService {
     public void partialUpdate(OrganizerDto organizerDto) {
         Organizer organizer = organizerRegistration.findById(organizerDto.getId()).orElse(new Organizer());
         if (organizerDto.getName() != null) {
-            organizer.setName2(organizerDto.getName());
+            organizer.setName(organizerDto.getName().orElse(null));
         }
         if (organizerDto.getDescription() != null) {
             organizer.setDescription2(organizerDto.getDescription());

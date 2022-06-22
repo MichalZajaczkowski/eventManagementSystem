@@ -1,12 +1,16 @@
 package com.michal.eventmanagementsystem.model;
 
-import lombok.Data;
+import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "organizers")
 public class Organizer {

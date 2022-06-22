@@ -17,5 +17,6 @@ public class ToDoBoPotemSieZgubi {
     //8. Możesz zrobić jakieś logi
     //9. Możesz zrobić jakieś testy
     //10. Do usunięcia "mapstruct" to by wypadało napisać z ręki
+    //11. weryfikacja maila czy istnieje
 
 }

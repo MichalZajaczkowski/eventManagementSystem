@@ -3,7 +3,7 @@ package com.michal.eventmanagementsystem.controller;
 import com.michal.eventmanagementsystem.dto.OrganizerDto;
 import com.michal.eventmanagementsystem.model.Organizer;
 import com.michal.eventmanagementsystem.service.OrganizerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +12,14 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/organizer")
 public class OrganizerController {
 
-    OrganizerService organizerService;
+    private final OrganizerService organizerService;
 
-    @Autowired
-    public OrganizerController(OrganizerService organizerService) {
-        this.organizerService = organizerService;
-    }
-
-    @GetMapping("/all")
+    @GetMapping()
     public List<Organizer> findAll() {
         return organizerService.findAll();
     }
@@ -33,29 +29,29 @@ public class OrganizerController {
         return organizerService.findById(id);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> save(@Valid @RequestBody Organizer organizer) {
-        organizerService.save(organizer);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Organizer with id: " + organizer.getId() + " was created");
+    @PostMapping()
+    public ResponseEntity<OrganizerDto> save(@Valid @RequestBody OrganizerDto organizerDto) {
+        organizerService.save(organizerDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody Organizer organizer) {
-        if (organizerService.findById(organizer.getId()).isPresent()) {
-            organizerService.update(organizer);
-            return ResponseEntity.status(HttpStatus.OK).body("Organizer with id: " + organizer.getId() + " was updated");
+    @PutMapping()
+    public ResponseEntity<Void> update(@RequestBody OrganizerDto organizerDto) {
+        if (organizerService.findById(organizerDto.getId()).isPresent()) {
+            organizerService.update(organizerDto);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Organizer with id: " + organizer.getId() + " was not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<String> partialUpdate(@RequestBody OrganizerDto organizerDto) {
+    @PatchMapping()
+    public ResponseEntity<Void> partialUpdate(@RequestBody OrganizerDto organizerDto) {
         if (organizerService.findById(organizerDto.getId()).isPresent()) {
             organizerService.partialUpdate(organizerDto);
-            return ResponseEntity.status(HttpStatus.OK).body("Organizer with id: " + organizerDto.getId() + " was updated");
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Organizer with id: " + organizerDto.getId() + " was not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
