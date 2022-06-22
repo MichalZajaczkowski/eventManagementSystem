@@ -1,7 +1,6 @@
 package com.michal.eventmanagementsystem.model;
 
 import lombok.*;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 
@@ -25,12 +24,4 @@ public class Organizer {
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    public void setName2(JsonNullable<String> name) {
-        this.name = name.orElse(null);
-    }
-
-    public void setDescription2(JsonNullable<String> description) {
-        this.description = description.orElse(null);
-    }
 }

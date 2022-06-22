@@ -60,10 +60,10 @@ public class OrganizerService {
     public void partialUpdate(OrganizerDto organizerDto) {
         Organizer organizer = organizerRegistration.findById(organizerDto.getId()).orElse(new Organizer());
         if (organizerDto.getName() != null) {
-            organizer.setName(organizerDto.getName().orElse(null));
+            organizer.setName(organizerDto.getName().orElse(organizer.getName()));
         }
         if (organizerDto.getDescription() != null) {
-            organizer.setDescription2(organizerDto.getDescription());
+            organizer.setDescription(organizerDto.getDescription().orElse(organizer.getDescription()));
         }
         organizerRegistration.save(organizer);
     }
