@@ -28,44 +28,29 @@ public class PlaceAddressService {
         return placeAddressRepository.findById(id);
     }
 
-    public void deleteById(Long id) {
-        placeAddressRepository.deleteById(id);
-    }
-
-    public void deleteAll() {
-        placeAddressRepository.deleteAll();
-    }
-
-    public PlaceAddress getById(Long id) {
-        return placeAddressRepository.getById(id);
-    }
-
-    public void save(PlaceAddress placeAddress) {
-        if (placeAddress.getId() != null) {
-            Long id = placeAddress.getId();
+    public void save(PlaceAddressDto placeAddressDto) {
+        if (placeAddressDto.getId() != null) {
+            Long id = placeAddressDto.getId();
             placeAddressRepository.findById(id)
                     .ifPresent(placeAddress1 -> {
-                                placeAddress.setId(placeAddress1.getId());
-                                placeAddressRepository.save(placeAddress);
+                                placeAddressDto.setId(placeAddress1.getId());
+                                placeAddressRepository.save(placeAddressDto.toPlaceAddress());
                             }
                     );
         } else {
-            placeAddressRepository.save(placeAddress);
+            placeAddressRepository.save(placeAddressDto.toPlaceAddress());
         }
     }
 
-    public void update(PlaceAddress placeAddress) {
-        PlaceAddress updatePlaceAddress = placeAddressRepository.getById(placeAddress.getId());
-        if (updatePlaceAddress != null) {
-            updatePlaceAddress.setCountry(placeAddress.getCountry());
-            updatePlaceAddress.setCity(placeAddress.getCity());
-            updatePlaceAddress.setStreetName(placeAddress.getStreetName());
-            updatePlaceAddress.setStreetNumber(placeAddress.getStreetNumber());
-            updatePlaceAddress.setZipCode(placeAddress.getZipCode());
-            updatePlaceAddress.setPhone(placeAddress.getPhone());
-            updatePlaceAddress.setEmail(placeAddress.getEmail());
-
-            placeAddressRepository.save(updatePlaceAddress);
+    public void update(PlaceAddressDto placeAddressDto) {
+        if (placeAddressDto.getId() != null) {
+            Long id = placeAddressDto.getId();
+            placeAddressRepository.findById(id)
+                    .ifPresent(placeAddress1 -> {
+                                placeAddressDto.setId(id);
+                                placeAddressRepository.save(placeAddressDto.toPlaceAddress());
+                            }
+                    );
         }
     }
 
@@ -73,25 +58,25 @@ public class PlaceAddressService {
         PlaceAddress placeAddress = placeAddressRepository.findById(placeAddressDto.getId()).orElse(null);
         if (placeAddress != null) {
             if (placeAddressDto.getCountry() != null) {
-                placeAddress.setCountry2(placeAddressDto.getCountry());
+                placeAddress.setCountry(placeAddressDto.getCountry().orElse(placeAddress.getCountry()));
             }
             if (placeAddressDto.getCity() != null) {
-                placeAddress.setCity2(placeAddressDto.getCity());
+                placeAddress.setCity(placeAddressDto.getCity().orElse(placeAddress.getCity()));
             }
             if (placeAddressDto.getStreetName() != null) {
-                placeAddress.setStreetName2(placeAddressDto.getStreetName());
+                placeAddress.setStreetName(placeAddressDto.getStreetName().orElse(placeAddress.getStreetName()));
             }
             if (placeAddressDto.getStreetNumber() != null) {
-                placeAddress.setStreetNumber2(placeAddressDto.getStreetNumber());
+                placeAddress.setStreetNumber(placeAddressDto.getStreetNumber().orElse(placeAddress.getStreetNumber()));
             }
             if (placeAddressDto.getZipCode() != null) {
-                placeAddress.setZipCode2(placeAddressDto.getZipCode());
+                placeAddress.setZipCode(placeAddressDto.getZipCode().orElse(placeAddress.getZipCode()));
             }
             if (placeAddressDto.getPhone() != null) {
-                placeAddress.setPhone2(placeAddressDto.getPhone());
+                placeAddress.setPhone(placeAddressDto.getPhone().orElse(placeAddress.getPhone()));
             }
             if (placeAddressDto.getEmail() != null) {
-                placeAddress.setEmail2(placeAddressDto.getEmail());
+                placeAddress.setEmail(placeAddressDto.getEmail().orElse(placeAddress.getEmail()));
             }
             placeAddressRepository.save(placeAddress);
         }

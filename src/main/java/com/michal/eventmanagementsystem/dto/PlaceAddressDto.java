@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.dto;
 
+import com.michal.eventmanagementsystem.model.PlaceAddress;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.constraints.*;
@@ -13,29 +14,18 @@ import javax.validation.constraints.*;
 public class PlaceAddressDto {
 
     private Long id;
-    @NotNull
-    @Size
     private JsonNullable<String> country;
 
-    @NotNull
     private JsonNullable<String> city;
 
-    @NotEmpty
     private JsonNullable<String> streetName;
 
-    @NotNull
     private JsonNullable<String> streetNumber;
 
-    @NotNull
-
-    @NotNull
     private JsonNullable<String> zipCode;
 
-    @NotNull
     private JsonNullable<String> phone;
 
-    @NotNull
-    @Email
     private JsonNullable<String> email;
 
 
@@ -65,5 +55,18 @@ public class PlaceAddressDto {
 
     public boolean hasEmail() {
         return email != null && email.isPresent();
+    }
+
+    public PlaceAddress toPlaceAddress() {
+        PlaceAddress placeAddress = new PlaceAddress();
+        placeAddress.setId(id);
+        placeAddress.setCountry(country.orElse(null));
+        placeAddress.setCity(city.orElse(null));
+        placeAddress.setStreetName(streetName.orElse(null));
+        placeAddress.setStreetNumber(streetNumber.orElse(null));
+        placeAddress.setZipCode(zipCode.orElse(null));
+        placeAddress.setPhone(phone.orElse(null));
+        placeAddress.setEmail(email.orElse(null));
+        return placeAddress;
     }
 }

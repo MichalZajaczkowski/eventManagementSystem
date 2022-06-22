@@ -1,29 +1,23 @@
 package com.michal.eventmanagementsystem.controller;
 
 import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
-import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.service.PlaceAddressService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/placeAddress")
 public class PlaceAddressController {
 
-    PlaceAddressService placeAddressService;
+    private final PlaceAddressService placeAddressService;
 
-    @Autowired
-    public PlaceAddressController(PlaceAddressService placeAddressService) {
-        this.placeAddressService = placeAddressService;
-    }
-
-    @GetMapping("/all")
+    @GetMapping()
     public List<PlaceAddress> findAll() {
         return placeAddressService.findAll();
     }
@@ -33,28 +27,23 @@ public class PlaceAddressController {
         return placeAddressService.findById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteById(@PathVariable("id") Long id) {
-        placeAddressService.deleteById(id);
-    }
-
-    @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody PlaceAddress placeAddress) {
-        placeAddressService.save(placeAddress);
-        return ResponseEntity.status(HttpStatus.CREATED).body("PlaceAddress with id: " + placeAddress.getId() + " was created");
+    @PostMapping()
+    public ResponseEntity<Void> save(@RequestBody PlaceAddressDto placeAddressDto) {
+        placeAddressService.save(placeAddressDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
-    @PutMapping("/updatePlaceAddress")
-    public ResponseEntity<String> update(@RequestBody PlaceAddress placeAddress) {
-        placeAddressService.update(placeAddress);
-        return ResponseEntity.status(HttpStatus.OK).body("PlaceAddress with id: " + placeAddress.getId() + " was updated");
+    @PutMapping()
+    public ResponseEntity<Void> update(@RequestBody PlaceAddressDto placeAddressDto) {
+        placeAddressService.update(placeAddressDto);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
-    @PatchMapping("/updatePlaceAddress")
-    public ResponseEntity<String> partialUpdate(@RequestBody PlaceAddressDto placeAddressDto) {
+    @PatchMapping()
+    public ResponseEntity<Void> partialUpdate(@RequestBody PlaceAddressDto placeAddressDto) {
         placeAddressService.partialUpdate(placeAddressDto);
-        return ResponseEntity.status(HttpStatus.OK).body("PlaceAddress with id: " + placeAddressDto.getId() + " was updated");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
