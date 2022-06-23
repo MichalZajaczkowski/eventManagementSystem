@@ -36,16 +36,11 @@ public class PlaceService {
         return placeRepository.findById(id);
     }
 
-    public void deleteById(Long id) {
-        placeRepository.deleteById(id);
-    }
-
-
     public void save(Place place) {
         if (place.getPlaceAddress() != null && place.getPlaceAddress().getId() != null) {
             Long id = place.getPlaceAddress().getId();
             placeAddressRepository.findById(id)
-                    .ifPresent(placeAddress -> {
+                    .ifPresent(placeAddress-> {
                                 place.setPlaceAddress(placeAddress);
                                 placeRepository.save(place);
                             }
@@ -56,17 +51,18 @@ public class PlaceService {
     }
 
 
-    public void update(Place place) {
-        if (place.getPlaceAddress() == null && place.getPlaceAddress().getId() == null) {
-            Long id = place.getPlaceAddress().getId();
+
+    public void update(PlaceDto placeDto) {
+        if (placeDto.getPlaceAddress() == null && placeDto.getPlaceAddress().getId() == null) {
+            Long id = placeDto.getPlaceAddress().getId();
             placeAddressRepository.findById(id)
                     .ifPresent(placeAddress -> {
-                                place.setPlaceAddress(placeAddress);
-                                placeRepository.save(place);
+                                placeDto.getPlaceAddress().setId(id);
+                                placeRepository.save(placeDto.toPlace());
                             }
                     );
         } else {
-            placeRepository.save(place);
+            placeRepository.save(placeDto.toPlace());
         }
     }
 

@@ -36,4 +36,13 @@ public class PlaceDto {
     public boolean hasDescription() {
         return description != null && description.isPresent();
     }
+
+    public Place toPlace() {
+        Place place = new Place();
+        place.setId(id);
+        place.setPlaceName(placeName.orElse(null));
+        place.setDescription(description.orElse(null));
+        place.setPlaceAddress(placeAddress.toPlaceAddress());
+        return place;
+    }
 }

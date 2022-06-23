@@ -3,7 +3,6 @@ package com.michal.eventmanagementsystem.dto;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor

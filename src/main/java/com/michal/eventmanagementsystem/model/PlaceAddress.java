@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.model;
 
+import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
