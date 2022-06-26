@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.controller;
 
+import com.michal.eventmanagementsystem.dto.StatusDto;
 import com.michal.eventmanagementsystem.model.Status;
 import com.michal.eventmanagementsystem.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class StatusController {
         this.statusService = statusService;
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<Status> findAll() {
         return statusService.findAll();
     }
@@ -32,15 +33,15 @@ public class StatusController {
         return statusService.findById(id);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> save(@Valid @RequestBody Status status) {
-        statusService.save(status);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Status with id: " + status.getId() + " was created");
+    @PostMapping()
+    public ResponseEntity<StatusDto> save(@Valid @RequestBody StatusDto statusDto) {
+        statusService.save(statusDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody Status status) {
-        statusService.update(status);
-        return ResponseEntity.status(HttpStatus.OK).body("Status with id: " + status.getId() + " was updated");
+    @PutMapping()
+    public ResponseEntity<StatusDto> update(@RequestBody StatusDto statusDto) {
+        statusService.update(statusDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

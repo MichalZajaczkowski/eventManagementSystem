@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.service;
 
+import com.michal.eventmanagementsystem.dto.StatusDto;
 import com.michal.eventmanagementsystem.model.Status;
 import com.michal.eventmanagementsystem.repository.StatusRepository;
 import org.springframework.stereotype.Service;
@@ -24,27 +25,27 @@ public class StatusService {
         return statusRepository.findById(id);
     }
 
-    public void save(Status status) {
-        if (status.getId() != null) {
-            Long id = status.getId();
+    public void save(StatusDto statusDto) {
+        if (statusDto.getId() != null) {
+            Long id = statusDto.getId();
             statusRepository.findById(id)
                     .ifPresent(status1 -> {
-                                status.setId(id);
-                                statusRepository.save(status);
+                                statusDto.setId(id);
+                                statusRepository.save(statusDto.toStatus());
                             }
                     );
         } else {
-            statusRepository.save(status);
+            statusRepository.save(statusDto.toStatus());
         }
     }
 
-    public void update(Status status) {
-        if (status.getId() != null) {
-            Long id = status.getId();
+    public void update(StatusDto statusDto) {
+        if (statusDto.getId() != null) {
+            Long id = statusDto.getId();
             statusRepository.findById(id)
                     .ifPresent(status1 -> {
-                                status.setId(id);
-                                statusRepository.save(status);
+                                statusDto.setId(id);
+                                statusRepository.save(statusDto.toStatus());
                             }
                     );
         }
