@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     UserService userService;
@@ -36,9 +36,9 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@Valid @RequestBody User user) {
+    public ResponseEntity<Void> save(@Valid @RequestBody User user) {
         userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User with id: " + user.getId() + " was created");
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")

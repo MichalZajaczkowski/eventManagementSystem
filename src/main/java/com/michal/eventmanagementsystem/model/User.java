@@ -1,12 +1,16 @@
 package com.michal.eventmanagementsystem.model;
 
-import lombok.Data;
+import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,7 +20,7 @@ public class User {
     @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_address_id")
     private UserAddress userAddress;
 
