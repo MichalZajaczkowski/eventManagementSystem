@@ -1,6 +1,5 @@
 package com.michal.eventmanagementsystem.model;
 
-import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -40,5 +39,33 @@ public class PlaceAddress {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    public JsonNullable<String> getCountryToDto() {
+        return country == null ? null : JsonNullable.of(country);
+    }
+
+    public JsonNullable<String> getCityToDto() {
+        return city == null ? null : JsonNullable.of(city);
+    }
+
+    public JsonNullable<String> getStreetNameToDto() {
+        return streetName == null ? null : JsonNullable.of(streetName);
+    }
+
+    public JsonNullable<String> getStreetNumber2ToDto() {
+        return streetNumber == null ? null : JsonNullable.of(streetNumber);
+    }
+
+    public JsonNullable<String> getZipCodeToDto() {
+        return zipCode == null ? null : JsonNullable.of(zipCode);
+    }
+
+    public JsonNullable<String> getPhoneToDto() {
+        return phone == null ? null : JsonNullable.of(phone);
+    }
+
+    public JsonNullable<String> getEmailToDto() {
+        return email == null ? null : JsonNullable.of(email);
+    }
 
 }

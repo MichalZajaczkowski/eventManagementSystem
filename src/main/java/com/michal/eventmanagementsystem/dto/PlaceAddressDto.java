@@ -27,6 +27,17 @@ public class PlaceAddressDto {
 
     private JsonNullable<String> email;
 
+    public PlaceAddressDto(PlaceAddress placeAddress) {
+        this.id = placeAddress.getId();
+        this.country = placeAddress.getCountryToDto();
+        this.city = placeAddress.getCityToDto();
+        this.streetName = placeAddress.getStreetNameToDto();
+        this.streetNumber = placeAddress.getStreetNumber2ToDto();
+        this.zipCode = placeAddress.getZipCodeToDto();
+        this.phone = placeAddress.getPhoneToDto();
+        this.email = placeAddress.getEmailToDto();
+    }
+
 
     public boolean hasCountry() {
         return country != null && country.isPresent();

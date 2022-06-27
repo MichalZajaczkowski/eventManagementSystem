@@ -5,6 +5,8 @@ import com.michal.eventmanagementsystem.model.PlaceAddress;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 
 @Data
@@ -44,5 +46,8 @@ public class PlaceDto {
         place.setDescription(description.orElse(null));
         place.setPlaceAddress(placeAddress.toPlaceAddress());
         return place;
+    }
+    public void setPlaceAddressToDto(PlaceAddress placeAddress) {
+        this.placeAddress = new PlaceAddressDto(placeAddress);
     }
 }

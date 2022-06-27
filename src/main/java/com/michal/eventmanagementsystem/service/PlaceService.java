@@ -1,6 +1,5 @@
 package com.michal.eventmanagementsystem.service;
 
-import com.michal.eventmanagementsystem.dto.PlaceAddressDto;
 import com.michal.eventmanagementsystem.dto.PlaceDto;
 import com.michal.eventmanagementsystem.mapper.PlaceMapper;
 import com.michal.eventmanagementsystem.model.Place;
@@ -9,8 +8,6 @@ import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,20 +33,19 @@ public class PlaceService {
         return placeRepository.findById(id);
     }
 
-    public void save(Place place) {
-        if (place.getPlaceAddress() != null && place.getPlaceAddress().getId() != null) {
-            Long id = place.getPlaceAddress().getId();
+    public void save(PlaceDto placeDto) {
+        if (placeDto.getPlaceAddress() != null && placeDto.getPlaceAddress().getId() != null) {
+            Long id = placeDto.getPlaceAddress().getId();
             placeAddressRepository.findById(id)
-                    .ifPresent(placeAddress-> {
-                                place.setPlaceAddress(placeAddress);
-                                placeRepository.save(place);
+                    .ifPresent(placeAddress -> {
+                                placeDto.setPlaceAddressToDto(placeAddress);
+                                placeRepository.save(placeDto.toPlace());
                             }
                     );
         } else {
-            placeRepository.save(place);
+            placeRepository.save(placeDto.toPlace());
         }
     }
-
 
 
     public void update(PlaceDto placeDto) {
@@ -71,10 +67,10 @@ public class PlaceService {
         Place place = placeRepository.findById(placeDto.getId()).orElse(null);
         if (place != null) {
             if (placeDto.getPlaceName() != null) {
-                place.setPlaceName2(placeDto.getPlaceName());
+                place.setPlaceNameToDto(placeDto.getPlaceName());
             }
             if (placeDto.getDescription() != null) {
-                place.setDescription2(placeDto.getDescription());
+                place.setDescriptionToDto(placeDto.getDescription());
             }
             if (placeDto.getPlaceAddress() != null) {
                 PlaceAddress placeAddress = placeAddressRepository.findById(placeDto.getPlaceAddress().getId()).orElse(null);

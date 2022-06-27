@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +31,11 @@ public class PlaceController {
 
     //create Place and save it to database with id from placeAddress
     @PostMapping()
-    public ResponseEntity<PlaceDto> save(@Valid @RequestBody Place place) {
-        placeService.save(place);
+    public ResponseEntity<PlaceDto> save(@Valid @RequestBody PlaceDto placeDto) {
+        placeService.save(placeDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @PutMapping()
     public ResponseEntity<PlaceDto> update(@RequestBody PlaceDto placeDto) {
