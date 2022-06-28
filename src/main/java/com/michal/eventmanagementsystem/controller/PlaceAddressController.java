@@ -28,21 +28,21 @@ public class PlaceAddressController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@RequestBody PlaceAddressDto placeAddressDto) {
+    public ResponseEntity<PlaceAddressDto> save(@RequestBody PlaceAddressDto placeAddressDto) {
         placeAddressService.save(placeAddressDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
     @PutMapping()
-    public ResponseEntity<Void> update(@RequestBody PlaceAddressDto placeAddressDto) {
+    public ResponseEntity<PlaceAddressDto> update(@RequestBody PlaceAddressDto placeAddressDto) {
         placeAddressService.update(placeAddressDto);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
     @PatchMapping()
-    public ResponseEntity<Void> partialUpdate(@RequestBody PlaceAddressDto placeAddressDto) {
+    public ResponseEntity<PlaceAddressDto> partialUpdate(@RequestBody PlaceAddressDto placeAddressDto) {
         placeAddressService.partialUpdate(placeAddressDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
