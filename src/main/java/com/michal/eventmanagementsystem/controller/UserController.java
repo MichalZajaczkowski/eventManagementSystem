@@ -3,7 +3,7 @@ package com.michal.eventmanagementsystem.controller;
 import com.michal.eventmanagementsystem.dto.UserDto;
 import com.michal.eventmanagementsystem.model.User;
 import com.michal.eventmanagementsystem.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,49 +12,40 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/all")
+    @GetMapping()
     public List<User> findAll() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> findById(@PathVariable Long id) {
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
-        return user.map(value -> ResponseEntity.status(HttpStatus.OK).body("User with id: " + user.get().getId() + " was found"))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id: " + id + " was not found"));
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Void> save(@Valid @RequestBody User user) {
-        userService.save(user);
+    @PostMapping()
+    public ResponseEntity<UserDto> save(@Valid @RequestBody UserDto userDto) {
+        userService.save(userDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody User user) {
-        userService.update(user);
-        return ResponseEntity.status(HttpStatus.OK).body("User with id: " + user.getId() + " was updated");
+    @PutMapping()
+    public ResponseEntity<UserDto> update(@RequestBody UserDto userDto) {
+        userService.update(userDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<String> partialUpdate(@RequestBody UserDto userDto) {
+    @PatchMapping()
+    public ResponseEntity<UserDto> partialUpdate(@RequestBody UserDto userDto) {
         userService.partialUpdate(userDto);
-        return ResponseEntity.status(HttpStatus.OK).body("User with id: " + userDto.getId() + " was updated");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteById(@PathVariable("id") Long id) {
-        userService.deleteById(id);
-    }
 }

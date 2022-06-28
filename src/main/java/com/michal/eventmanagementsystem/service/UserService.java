@@ -24,20 +24,6 @@ public class UserService {
         this.userAddressRepository = userAddressRepository;
     }
 
-    public void save(User user) {
-        if (user.getUserAddress() != null && user.getUserAddress().getId() != null) {
-            Long id = user.getUserAddress().getId();
-            userAddressRepository.findById(id)
-                    .ifPresent(userAddress -> {
-                                user.setUserAddress(userAddress);
-                                userRepository.save(user);
-                            }
-                    );
-        } else {
-            userRepository.save(user);
-        }
-    }
-
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -50,17 +36,31 @@ public class UserService {
         }
     }
 
-    public void update(User user) {
-        if (user.getUserAddress() == null && user.getUserAddress().getId() == null) {
-            Long id = user.getUserAddress().getId();
+    public void save(UserDto userDto) {
+        if (userDto.getUserAddress() != null && userDto.getUserAddress().getId() != null) {
+            Long id = userDto.getUserAddress().getId();
             userAddressRepository.findById(id)
                     .ifPresent(userAddress -> {
-                                user.setUserAddress(userAddress);
-                                userRepository.save(user);
+                                userDto.setUserAddressToDto(userAddress);
+                                userRepository.save(userDto.toUser());
                             }
                     );
         } else {
-            userRepository.save(user);
+            userRepository.save(userDto.toUser());
+        }
+    }
+
+    public void update(UserDto userDto) {
+        if (userDto.getUserAddress() == null && userDto.getUserAddress().getId() == null) {
+            Long id = userDto.getUserAddress().getId();
+            userAddressRepository.findById(id)
+                    .ifPresent(userAddress -> {
+                                userDto.getUserAddress().setId(id);
+                                userRepository.save(userDto.toUser());
+                            }
+                    );
+        } else {
+            userRepository.save(userDto.toUser());
         }
     }
 
@@ -90,13 +90,5 @@ public class UserService {
             }
             userRepository.save(user);
         }
-    }
-
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public void deleteAll() {
-        userRepository.deleteAll();
     }
 }

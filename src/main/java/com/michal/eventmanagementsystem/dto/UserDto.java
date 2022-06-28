@@ -1,5 +1,7 @@
 package com.michal.eventmanagementsystem.dto;
 
+import com.michal.eventmanagementsystem.model.User;
+import com.michal.eventmanagementsystem.model.UserAddress;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -43,5 +45,23 @@ public class UserDto {
 
     public boolean hasEmail() {
         return email != null && email.isPresent();
+    }
+
+    public User toUser() {
+        User user = new User();
+        user.setId(id);
+        user.setUserName(userName.orElse(null));
+        user.setSurname(surname.orElse(null));
+        user.setLogin(login.orElse(null));
+        user.setPassword(password.orElse(null));
+        user.setEmail(email.orElse(null));
+        if (userAddress != null) {
+            user.setUserAddress(userAddress.toUserAddress());
+        }
+        return user;
+    }
+
+    public void setUserAddressToDto(UserAddress userAddress) {
+        this.userAddress = new UserAddressDto(userAddress);
     }
 }
