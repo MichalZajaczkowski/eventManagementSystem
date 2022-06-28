@@ -27,7 +27,7 @@ public class PlaceDto {
     @Size(min = 1, message = "Enter a description")
     private JsonNullable<String> description;
 
-    private JsonNullable<Integer> quantityAvailablePlaces;
+    private JsonNullable<String> quantityAvailablePlaces;
 
 /*    public boolean hasPlaceAddress() {
        return placeAddressDto != null && placeAddressDto.isPresent();

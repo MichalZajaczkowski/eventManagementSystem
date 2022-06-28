@@ -32,8 +32,8 @@ public class PlaceAddressService {
         if (placeAddressDto.getId() != null) {
             Long id = placeAddressDto.getId();
             placeAddressRepository.findById(id)
-                    .ifPresent(placeAddress1 -> {
-                                placeAddressDto.setId(placeAddress1.getId());
+                    .ifPresent(placeAddress -> {
+                                placeAddressDto.setId(placeAddress.getId());
                                 placeAddressRepository.save(placeAddressDto.toPlaceAddress());
                             }
                     );

@@ -29,7 +29,7 @@ public class Place {
     private String description;
 
     @Column(name = "quantity_available_places")
-    private Integer quantityAvailablePlaces;
+    private String quantityAvailablePlaces;
 
 
     public void setPlaceNameToDto(JsonNullable<String> placeName) {
