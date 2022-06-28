@@ -27,6 +27,8 @@ public class PlaceDto {
     @Size(min = 1, message = "Enter a description")
     private JsonNullable<String> description;
 
+    private JsonNullable<Integer> quantityAvailablePlaces;
+
 /*    public boolean hasPlaceAddress() {
        return placeAddressDto != null && placeAddressDto.isPresent();
     }*/
@@ -39,14 +41,22 @@ public class PlaceDto {
         return description != null && description.isPresent();
     }
 
+    public boolean hasQuantityAvailablePlaces() {
+        return quantityAvailablePlaces != null && quantityAvailablePlaces.isPresent();
+    }
+
     public Place toPlace() {
         Place place = new Place();
         place.setId(id);
         place.setPlaceName(placeName.orElse(null));
         place.setDescription(description.orElse(null));
-        place.setPlaceAddress(placeAddress.toPlaceAddress());
+        place.setQuantityAvailablePlaces(quantityAvailablePlaces.orElse(null));
+        if (placeAddress != null) {
+            place.setPlaceAddress(placeAddress.toPlaceAddress());
+        }
         return place;
     }
+
     public void setPlaceAddressToDto(PlaceAddress placeAddress) {
         this.placeAddress = new PlaceAddressDto(placeAddress);
     }

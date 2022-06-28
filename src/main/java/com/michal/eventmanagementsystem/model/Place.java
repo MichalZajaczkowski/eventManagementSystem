@@ -18,7 +18,7 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "place_address_id")
     private PlaceAddress placeAddress;
 
@@ -27,6 +27,9 @@ public class Place {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "quantity_available_places")
+    private Integer quantityAvailablePlaces;
 
 
     public void setPlaceNameToDto(JsonNullable<String> placeName) {

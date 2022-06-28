@@ -12,11 +12,13 @@ public interface PlaceMapper {
     @Mapping(source = "placeAddress", target = "placeAddress")
     @Mapping(source = "placeName", target = "placeName", qualifiedByName = "unwrap")
     @Mapping(source = "description", target = "description", qualifiedByName = "unwrap")
+    @Mapping(source = "quantityAvailablePlaces", target = "quantityAvailablePlaces", qualifiedByName = "unwrap")
     Place PlaceDtoToPlace(PlaceDto placeDto);
 
     @Mapping(source = "placeAddress", target = "placeAddress")
     @Mapping(source = "placeName", target = "placeName", qualifiedByName = "wrap")
     @Mapping(source = "description", target = "description", qualifiedByName = "wrap")
+    @Mapping(source = "quantityAvailablePlaces", target = "quantityAvailablePlaces", qualifiedByName = "wrap")
     PlaceDto placeToPlaceDto(Place place);
 
     @InheritConfiguration
