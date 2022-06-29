@@ -1,6 +1,7 @@
 package com.michal.eventmanagementsystem.model;
 
 import lombok.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 
@@ -24,4 +25,22 @@ public class Organizer {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    public JsonNullable<String> getNameToDto() {
+        return name == null ? null : JsonNullable.of(name);
+    }
+
+    public JsonNullable<String> getDescriptionToDto() {
+        return description == null ? null : JsonNullable.of(description);
+    }
+
+    public void setNameToDto(JsonNullable<String> name) {
+        this.name = name.orElse(null);
+    }
+
+    public void setDescriptionToDto(JsonNullable<String> description) {
+        this.description = description.orElse(null);
+    }
+
+
 }

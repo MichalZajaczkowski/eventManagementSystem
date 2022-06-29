@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrganizerRegistration extends JpaRepository<Organizer, Long> {
-
+public interface OrganizerRepository extends JpaRepository<Organizer, Long> {
     List<Organizer> findAll();
 
     Optional<Organizer> findById(Long id);
