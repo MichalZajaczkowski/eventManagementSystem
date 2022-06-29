@@ -4,7 +4,6 @@ import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -40,23 +39,23 @@ public class User {
     private String email;
 
 
-    public void setUserName2(JsonNullable<String> userName) {
+    public void setUserNameToDto(JsonNullable<String> userName) {
         this.userName = userName.orElse(null);
     }
 
-        public void setSurname2(JsonNullable<String> surname2) {
+        public void setSurnameToDto(JsonNullable<String> surname2) {
         this.surname = surname2.orElse(null);
     }
 
-    public void setEmail2(JsonNullable<String> email) {
+    public void setEmailToDto(JsonNullable<String> email) {
         this.email = email.orElse(null);
     }
 
-    public void setLogin2(JsonNullable<String> login) {
+    public void setLoginToDto(JsonNullable<String> login) {
         this.login = login.orElse(null);
     }
 
-    public void setPassword2(JsonNullable<String> password) {
+    public void setPasswordToDto(JsonNullable<String> password) {
         this.password = password.orElse(null);
 
     }

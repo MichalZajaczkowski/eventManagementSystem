@@ -68,19 +68,19 @@ public class UserService {
         User user = userRepository.findById(userDto.getId()).orElse(null);
         if (user != null) {
             if (userDto.getUserName() != null) {
-                user.setUserName2(userDto.getUserName());
+                user.setUserNameToDto(userDto.getUserName());
             }
             if (userDto.getSurname() != null) {
-                user.setSurname2(userDto.getSurname());
+                user.setSurnameToDto(userDto.getSurname());
             }
             if (userDto.getEmail() != null) {
-                user.setEmail2(userDto.getEmail());
+                user.setEmailToDto(userDto.getEmail());
             }
             if (userDto.getLogin() != null) {
-                user.setLogin2(userDto.getLogin());
+                user.setLoginToDto(userDto.getLogin());
             }
             if (userDto.getPassword() != null) {
-                user.setPassword2(userDto.getPassword());
+                user.setPasswordToDto(userDto.getPassword());
             }
             if (userDto.getUserAddress() != null) {
                 UserAddress userAddress = userAddressRepository.findById(userDto.getUserAddress().getId()).orElse(null);
