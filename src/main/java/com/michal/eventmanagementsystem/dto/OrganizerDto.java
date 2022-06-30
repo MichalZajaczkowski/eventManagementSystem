@@ -16,6 +16,12 @@ public class OrganizerDto {
     private JsonNullable <String> name;
     private JsonNullable <String> description;
 
+    public OrganizerDto(Organizer organizer) {
+        this.id = organizer.getId();
+        this.name = organizer.getNameToDto();
+        this.description = organizer.getDescriptionToDto();
+    }
+
     public boolean hasName() {
         return name != null && name.isPresent();
     }
@@ -27,8 +33,8 @@ public class OrganizerDto {
     public Organizer toOrganizer() {
         Organizer organizer = new Organizer();
         organizer.setId(id);
-        organizer.setName(name.orElse(null));
-        organizer.setDescription(description.orElse(null));
+        organizer.setName(name == null ? null : name.orElse(null));
+        organizer.setDescription(description == null ? null : description.orElse(null));
         return organizer;
     }
 }

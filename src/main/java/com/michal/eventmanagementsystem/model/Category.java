@@ -22,4 +22,7 @@ public class Category {
     @NotNull(message = "Category name cannot be null")
     private String description;
 
+    public JsonNullable<String> getDescriptionToDto() {
+        return description == null ? null : JsonNullable.of(description);
+    }
 }

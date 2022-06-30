@@ -1,6 +1,7 @@
 package com.michal.eventmanagementsystem.model;
 
 import lombok.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import javax.persistence.*;
 
@@ -18,5 +19,13 @@ public class Status {
     private Long id;
 
     private String description;
+
+    public void setDescriptionToDto(String description) {
+        this.description = description;
+    }
+
+    public JsonNullable<String> getDescriptionToDto() {
+        return description == null ? null : JsonNullable.of(description);
+    }
 
 }

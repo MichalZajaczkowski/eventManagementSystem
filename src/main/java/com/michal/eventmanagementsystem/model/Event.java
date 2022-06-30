@@ -41,9 +41,9 @@ public class Event {
     private String description;
 
     @Column(name = "event_start_date")
-    private LocalDateTime eventStartDate;
+    private String eventStartDate;
 
     @Column(name = "event_end_date")
-    private LocalDateTime eventEndDate;
+    private String eventEndDate;
 
 }

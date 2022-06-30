@@ -72,6 +72,9 @@ public class PlaceService {
             if (placeDto.getDescription() != null) {
                 place.setDescriptionToDto(placeDto.getDescription());
             }
+            if (placeDto.getQuantityAvailablePlaces() != null) {
+                place.setQuantityAvailablePlacesToDto(placeDto.getQuantityAvailablePlaces());
+            }
             if (placeDto.getPlaceAddress() != null) {
                 PlaceAddress placeAddress = placeAddressRepository.findById(placeDto.getPlaceAddress().getId()).orElse(null);
                 if (placeAddress != null) {

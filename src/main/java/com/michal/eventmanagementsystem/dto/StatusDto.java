@@ -15,6 +15,11 @@ public class StatusDto {
     private Long id;
     private JsonNullable<String> description;
 
+    public StatusDto(Status status) {
+        this.id = status.getId();
+        this.description = status.getDescriptionToDto();
+    }
+
     public boolean hasDescription() {
         return description != null && description.isPresent();
     }
@@ -22,7 +27,7 @@ public class StatusDto {
     public Status toStatus() {
         Status status = new Status();
         status.setId(id);
-        status.setDescription(description.orElse(null));
+        status.setDescription(description == null ? null : description.orElse(null));
         return status;
     }
 }

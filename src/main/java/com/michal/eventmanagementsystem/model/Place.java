@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "place")
 public class Place {
@@ -39,4 +40,21 @@ public class Place {
     public void setDescriptionToDto(JsonNullable<String> description) {
         this.description = description.orElse(null);
     }
+
+    public void setQuantityAvailablePlacesToDto(JsonNullable<String> quantityAvailablePlaces) {
+        this.quantityAvailablePlaces = quantityAvailablePlaces.orElse(null);
+    }
+
+    public JsonNullable<String> getPlaceNameToDto() {
+        return placeName == null ? null : JsonNullable.of(placeName);
+    }
+
+    public JsonNullable<String> getDescriptionToDto() {
+        return description == null ? null : JsonNullable.of(description);
+    }
+
+    public JsonNullable<String> getQuantityAvailablePlacesToDto() {
+        return quantityAvailablePlaces == null ? null : JsonNullable.of(quantityAvailablePlaces);
+    }
+
 }

@@ -5,8 +5,6 @@ import com.michal.eventmanagementsystem.model.PlaceAddress;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 
 @Data
@@ -32,6 +30,14 @@ public class PlaceDto {
 /*    public boolean hasPlaceAddress() {
        return placeAddressDto != null && placeAddressDto.isPresent();
     }*/
+
+    public PlaceDto(Place place) {
+        this.id = place.getId();
+        this.placeAddress = new PlaceAddressDto(place.getPlaceAddress());
+        this.placeName = place.getPlaceNameToDto();
+        this.description = place.getDescriptionToDto();
+        this.quantityAvailablePlaces = place.getQuantityAvailablePlacesToDto();
+    }
 
     public boolean hasPlaceName() {
         return placeName != null && placeName.isPresent();

@@ -20,10 +20,10 @@ public class Organizer {
     @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     public JsonNullable<String> getNameToDto() {
@@ -41,6 +41,4 @@ public class Organizer {
     public void setDescriptionToDto(JsonNullable<String> description) {
         this.description = description.orElse(null);
     }
-
-
 }
