@@ -34,41 +34,6 @@ public class EventService {
     }
 
     public void save(EventDto eventDto) {
-/*        if (eventDto.getPlace() != null && eventDto.getPlace().getId() != null) {
-            Long id = eventDto.getPlace().getId();
-            placeRepository.findById(id)
-                    .ifPresent(place -> {
-                                eventDto.setPlaceToDto(place);
-                                eventRepository.save(eventDto.toEvent());
-                            }
-                    );
-        } else if (eventDto.getOrganizer() != null && eventDto.getOrganizer().getId() != null) {
-            Long id = eventDto.getOrganizer().getId();
-            organizerRepository.findById(id)
-                    .ifPresent(organizer -> {
-                                eventDto.setOrganizerToDto(organizer);
-                                eventRepository.save(eventDto.toEvent());
-                            }
-                    );
-        } else if (eventDto.getStatus() != null && eventDto.getStatus().getId() != null) {
-            Long id = eventDto.getStatus().getId();
-            statusRepository.findById(id)
-                    .ifPresent(status -> {
-                                eventDto.setStatusToDto(status);
-                                eventRepository.save(eventDto.toEvent());
-                            }
-                    );
-        } else if (eventDto.getCategory() != null && eventDto.getCategory().getId() != null) {
-            Long id = eventDto.getCategory().getId();
-            categoryRepository.findById(id)
-                    .ifPresent(category -> {
-                                eventDto.setCategoryToDto(category);
-                                eventRepository.save(eventDto.toEvent());
-                            }
-                    );
-        } else {
-            eventRepository.save(eventDto.toEvent());
-        }*/
         if ((eventDto.getPlace() != null && eventDto.getPlace().getId() != null)
                 || (eventDto.getOrganizer() != null && eventDto.getOrganizer().getId() != null)
                 || (eventDto.getStatus() != null && eventDto.getStatus().getId() != null)
