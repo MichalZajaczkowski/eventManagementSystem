@@ -34,7 +34,7 @@ public class EventService {
     }
 
     public void save(EventDto eventDto) {
-        if (eventDto.getPlace() != null && eventDto.getPlace().getId() != null) {
+/*        if (eventDto.getPlace() != null && eventDto.getPlace().getId() != null) {
             Long id = eventDto.getPlace().getId();
             placeRepository.findById(id)
                     .ifPresent(place -> {
@@ -66,6 +66,34 @@ public class EventService {
                                 eventRepository.save(eventDto.toEvent());
                             }
                     );
+        } else {
+            eventRepository.save(eventDto.toEvent());
+        }*/
+        if ((eventDto.getPlace() != null && eventDto.getPlace().getId() != null)
+                || (eventDto.getOrganizer() != null && eventDto.getOrganizer().getId() != null)
+                || (eventDto.getStatus() != null && eventDto.getStatus().getId() != null)
+                || (eventDto.getCategory() != null && eventDto.getCategory().getId() != null)) {
+            Long id = eventDto.getPlace().getId();
+            Long category = eventDto.getCategory().getId();
+            Long organizer = eventDto.getOrganizer().getId();
+            Long status = eventDto.getStatus().getId();
+            placeRepository.findById(id)
+                    .ifPresent(place -> {
+                        eventDto.setPlaceToDto(place);
+                        categoryRepository.findById(category)
+                                .ifPresent(category1 -> {
+                                    eventDto.setCategoryToDto(category1);
+                                    organizerRepository.findById(organizer)
+                                            .ifPresent(organizer1 -> {
+                                                eventDto.setOrganizerToDto(organizer1);
+                                                statusRepository.findById(status)
+                                                        .ifPresent(status1 -> {
+                                                            eventDto.setStatusToDto(status1);
+                                                            eventRepository.save(eventDto.toEvent());
+                                                        });
+                                            });
+                                });
+                    });
         } else {
             eventRepository.save(eventDto.toEvent());
         }
