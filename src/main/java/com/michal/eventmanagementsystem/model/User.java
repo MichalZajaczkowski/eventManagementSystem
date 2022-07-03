@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "users")
 public class User {
@@ -43,8 +44,8 @@ public class User {
         this.userName = userName.orElse(null);
     }
 
-        public void setSurnameToDto(JsonNullable<String> surname2) {
-        this.surname = surname2.orElse(null);
+    public void setSurnameToDto(JsonNullable<String> surname) {
+        this.surname = surname.orElse(null);
     }
 
     public void setEmailToDto(JsonNullable<String> email) {
@@ -58,5 +59,25 @@ public class User {
     public void setPasswordToDto(JsonNullable<String> password) {
         this.password = password.orElse(null);
 
+    }
+
+    public JsonNullable<String> getUserNameToDto() {
+        return userName == null ? null : JsonNullable.of(userName);
+    }
+
+    public JsonNullable<String> getSurnameToDto() {
+        return surname == null ? null : JsonNullable.of(surname);
+    }
+
+    public JsonNullable<String> getEmailToDto() {
+        return email == null ? null : JsonNullable.of(email);
+    }
+
+    public JsonNullable<String> getLoginToDto() {
+        return login == null ? null : JsonNullable.of(login);
+    }
+
+    public JsonNullable<String> getPasswordToDto() {
+        return password == null ? null : JsonNullable.of(password);
     }
 }

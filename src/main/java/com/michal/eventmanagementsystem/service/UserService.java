@@ -82,7 +82,7 @@ public class UserService {
             if (userDto.getPassword() != null) {
                 user.setPasswordToDto(userDto.getPassword());
             }
-            if (userDto.getUserAddress() != null) {
+            if (userDto.getUserAddress() != null || userDto.getUserAddress().getId() != null) {
                 UserAddress userAddress = userAddressRepository.findById(userDto.getUserAddress().getId()).orElse(null);
                 if (userAddress != null) {
                     user.setUserAddress(userAddress);

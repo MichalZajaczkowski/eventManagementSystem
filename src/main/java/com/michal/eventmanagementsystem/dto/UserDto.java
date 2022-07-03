@@ -26,6 +26,16 @@ public class UserDto {
 
     private JsonNullable<String> email;
 
+    public  UserDto(User user) {
+        this.id = user.getId();
+        this.userAddress = new UserAddressDto(user.getUserAddress());
+        this.userName = user.getUserNameToDto();
+        this.surname = user.getSurnameToDto();
+        this.login = user.getLoginToDto();
+        this.password = user.getPasswordToDto();
+        this.email = user.getEmailToDto();
+    }
+
 
     public boolean hasUserName() {
         return userName != null && userName.isPresent();

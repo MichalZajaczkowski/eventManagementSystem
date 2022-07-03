@@ -1,5 +1,6 @@
 package com.michal.eventmanagementsystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.michal.eventmanagementsystem.model.*;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -28,10 +29,13 @@ public class EventDto {
 
     private JsonNullable<String> description;
 
-    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Warsaw") and change String to LocalDateTime somehow it must be overcome
-    private JsonNullable<String> eventStartDate;
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Warsaw")// and change String to LocalDateTime somehow it must be overcome
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private JsonNullable<LocalDateTime> eventStartDate;
     //same as above
-    private JsonNullable<String> eventEndDate;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Warsaw")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private JsonNullable<LocalDateTime> eventEndDate;
 
 
     public boolean hasName() {
@@ -52,11 +56,11 @@ public class EventDto {
 
     public Event toEvent() {
         Event event = new Event();
+        event.setId(id);
         event.setName(name.orElse(null));
         event.setDescription(description.orElse(null));
         event.setEventStartDate(eventStartDate.orElse(null));
         event.setEventEndDate(eventEndDate.orElse(null));
-        event.setId(id);
         if (place != null) {
             event.setPlace(place.toPlace());
         }

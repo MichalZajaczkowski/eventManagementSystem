@@ -17,6 +17,7 @@ public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
     @OneToOne(cascade = CascadeType.MERGE)

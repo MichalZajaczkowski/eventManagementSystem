@@ -6,6 +6,7 @@ import com.michal.eventmanagementsystem.model.Place;
 import com.michal.eventmanagementsystem.model.PlaceAddress;
 import com.michal.eventmanagementsystem.repository.PlaceAddressRepository;
 import com.michal.eventmanagementsystem.repository.PlaceRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

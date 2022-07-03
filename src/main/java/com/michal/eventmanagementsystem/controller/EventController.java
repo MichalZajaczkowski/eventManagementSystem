@@ -42,9 +42,9 @@ public class EventController {
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 //
-//    @PatchMapping()
-//    public ResponseEntity<EventDto> partialUpdate(@RequestBody EventDto eventDto) {
-//        eventService.partialUpdate(eventDto);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @PatchMapping()
+    public ResponseEntity<EventDto> partialUpdate(@RequestBody EventDto eventDto) {
+        eventService.partialUpdate(eventDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

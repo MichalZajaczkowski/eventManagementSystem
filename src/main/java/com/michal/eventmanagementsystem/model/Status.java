@@ -16,12 +16,14 @@ public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
+    @Column(name = "description")
     private String description;
 
-    public void setDescriptionToDto(String description) {
-        this.description = description;
+    public void setDescriptionToDto(JsonNullable<String> description) {
+        this.description = description.orElse(null);
     }
 
     public JsonNullable<String> getDescriptionToDto() {
