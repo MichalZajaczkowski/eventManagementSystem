@@ -36,35 +36,81 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public void save(EventDto eventDto) {
-        if ((eventDto.getPlace() != null && eventDto.getPlace().getId() != null)
-                || (eventDto.getOrganizer() != null && eventDto.getOrganizer().getId() != null)
-                || (eventDto.getStatus() != null && eventDto.getStatus().getId() != null)
-                || (eventDto.getCategory() != null && eventDto.getCategory().getId() != null)) {
-            Long placeId = eventDto.getPlace().getId();
-            Long categoryId = eventDto.getCategory().getId();
-            Long organizerId = eventDto.getOrganizer().getId();
-            Long statusId = eventDto.getStatus().getId();
+    public void save(Event event) {
+        checkIfPlaceExists(event);
+        checkIfCategoryExists(event);
+        checkIfOrganizerExists(event);
+        checkIfStatusExists(event);
+        eventRepository.save(event);
+    }
+
+    private void checkIfPlaceExists(Event event)  {
+        if (event.getPlace() != null && event.getPlace().getId() != null) {
+            checkPlaceIdExists(event.getPlace().getId());
+
+            Long placeId = event.getPlace().getId();
             placeRepository.findById(placeId)
                     .ifPresent(place -> {
-                        eventDto.setPlaceToDto(place);
-                        categoryRepository.findById(categoryId)
-                                .ifPresent(category1 -> {
-                                    eventDto.setCategoryToDto(category1);
-                                    organizerRepository.findById(organizerId)
-                                            .ifPresent(organizer1 -> {
-                                                eventDto.setOrganizerToDto(organizer1);
-                                                statusRepository.findById(statusId)
-                                                        .ifPresent(status1 -> {
-                                                            eventDto.setStatusToDto(status1);
-                                                            eventRepository.save(eventDto.toEvent());
-                                                        });
-                                            });
-                                });
+                        event.setPlace(place);
+                        placeRepository.save(event.getPlace());
                     });
-        } else {
-            eventRepository.save(eventDto.toEvent());
         }
+    }
+
+    private boolean checkPlaceIdExists(Long id) {
+        placeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Place with id " + id + " does not exist"));
+        return true;
+    }
+
+    private void checkIfCategoryExists(Event event) {
+        if (event.getCategory() != null && event.getCategory().getId() != null) {
+            checkCategoryIdExists(event.getCategory().getId());
+            Long categoryId = event.getCategory().getId();
+            categoryRepository.findById(categoryId)
+                    .ifPresent(category -> {
+                        event.setCategory(category);
+                        categoryRepository.save(event.getCategory());
+                    });
+        }
+    }
+    private void checkCategoryIdExists(Long id) {
+        organizerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Organizer with id " + id + " does not exist"));
+    }
+
+    private void checkIfOrganizerExists(Event event) {
+        if (event.getOrganizer() != null && event.getOrganizer().getId() != null) {
+            checkOrganizerIdExists(event.getOrganizer().getId());
+            Long organizerId = event.getOrganizer().getId();
+            organizerRepository.findById(organizerId)
+                    .ifPresent(organizer -> {
+                        event.setOrganizer(organizer);
+                        organizerRepository.save(event.getOrganizer());
+                    });
+        }
+    }
+
+    private void checkOrganizerIdExists(Long id) {
+        organizerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Organizer with id " + id + " does not exist"));
+    }
+
+    private void checkIfStatusExists(Event event) {
+        if (event.getStatus() != null && event.getStatus().getId() != null) {
+            checkStatusIdExists(event.getStatus().getId());
+            Long statusId = event.getStatus().getId();
+            statusRepository.findById(statusId)
+                    .ifPresent(status -> {
+                        event.setStatus(status);
+                        statusRepository.save(event.getStatus());
+                    });
+        }
+    }
+
+    private void checkStatusIdExists(Long id) {
+        statusRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Status with id " + id + " does not exist"));
     }
 
     public void partialUpdate(EventDto eventDto) {

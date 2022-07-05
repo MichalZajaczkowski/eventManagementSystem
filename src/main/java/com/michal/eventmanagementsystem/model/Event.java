@@ -47,11 +47,11 @@ public class Event {
 
     @Column(name = "event_start_date")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventStartDate;
+    private String eventStartDate;
 
     @Column(name = "event_end_date")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventEndDate;
+    private String eventEndDate;
 
     public void setNameToDto(JsonNullable<String> name) {
         this.name = name.orElse(null);
@@ -61,11 +61,11 @@ public class Event {
         this.description = description.orElse(null);
     }
 
-    public void setEventStartDateToDto(JsonNullable<LocalDateTime> eventStartDate) {
+    public void setEventStartDateToDto(JsonNullable<String> eventStartDate) {
         this.eventStartDate = eventStartDate.orElse(null);
     }
 
-    public void setEventEndDateToDto(JsonNullable<LocalDateTime> eventEndDate) {
+    public void setEventEndDateToDto(JsonNullable<String> eventEndDate) {
         this.eventEndDate = eventEndDate.orElse(null);
     }
 

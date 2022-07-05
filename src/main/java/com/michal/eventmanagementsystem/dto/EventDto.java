@@ -31,11 +31,11 @@ public class EventDto {
 
     //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Warsaw")// and change String to LocalDateTime somehow it must be overcome
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private JsonNullable<LocalDateTime> eventStartDate;
+    private JsonNullable<String> eventStartDate;
     //same as above
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Warsaw")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private JsonNullable<LocalDateTime> eventEndDate;
+    private JsonNullable<String> eventEndDate;
 
 
     public boolean hasName() {

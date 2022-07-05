@@ -31,8 +31,8 @@ public class EventController {
     }
 
     @PostMapping()
-    public ResponseEntity<EventDto> save(@Valid @RequestBody EventDto eventDto) {
-        eventService.save(eventDto);
+    public ResponseEntity<Event> save(@Valid @RequestBody Event event) {
+        eventService.save(event);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
