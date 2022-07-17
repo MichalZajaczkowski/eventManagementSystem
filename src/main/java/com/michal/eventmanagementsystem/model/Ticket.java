@@ -10,26 +10,44 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "event_id")
-    private Event eventId;
+    private Event event;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @Column(name = "ticket_number")
-    private Long ticketNumber;
+    private String ticketNumber;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private String price;
 
+    @Column(name = "discount")
+    private String discount;
+
+    @Column(name = "total_price")
+    private String totalPrice;
+
+    @Column(name = "paid")
+    private boolean paid;
+
+    @Column(name = "paid_at")
+    private String paidAt;
+
+    @Column(name = "tickets_available")
+    private boolean ticketsAvailable;
+
+    @Column(name = "number_tickets_available")
+    private String numberTicketsAvailable;
 }

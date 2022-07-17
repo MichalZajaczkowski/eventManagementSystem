@@ -39,6 +39,10 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
+    public User(Long userId) {
+        this.id = userId;
+    }
+
 
     public void setUserNameToDto(JsonNullable<String> userName) {
         this.userName = userName.orElse(null);

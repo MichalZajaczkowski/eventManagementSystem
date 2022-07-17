@@ -5,8 +5,6 @@ import com.michal.eventmanagementsystem.model.*;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

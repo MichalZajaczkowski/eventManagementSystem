@@ -9,8 +9,7 @@ import java.text.DateFormat;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -52,6 +51,10 @@ public class Event {
     @Column(name = "event_end_date")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private String eventEndDate;
+
+    public Event(Long eventId) {
+        this.id = eventId;
+    }
 
     public void setNameToDto(JsonNullable<String> name) {
         this.name = name.orElse(null);
