@@ -1,24 +1,17 @@
 package com.michal.eventmanagementsystem.service;
 
-import com.michal.eventmanagementsystem.dto.CategoryDto;
-import com.michal.eventmanagementsystem.mapper.CategoryMapper;
 import com.michal.eventmanagementsystem.model.Category;
 import com.michal.eventmanagementsystem.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class CategoryService {
-
-    CategoryMapper categoryMapper;
-    CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryMapper categoryMapper, CategoryRepository categoryRepository) {
-        this.categoryMapper = categoryMapper;
-        this.categoryRepository = categoryRepository;
-    }
+    private final CategoryRepository categoryRepository;
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
@@ -26,45 +19,38 @@ public class CategoryService {
 
 
     public Optional<Category> findById(Long id) {
-        if (id == null) {
-            return Optional.empty();
-        } else {
+        if (categoryRepository.findById(id).isPresent()) {
             return categoryRepository.findById(id);
-        }
-    }
-
-    public void save(CategoryDto categoryDto) {
-        if (categoryDto.getId() != null) {
-            Long id = categoryDto.getId();
-            categoryRepository.findById(id)
-                    .ifPresent(category1 -> {
-                                categoryDto.setId(id);
-                                categoryRepository.save(categoryDto.toCategory());
-                            }
-                    );
         } else {
-            categoryRepository.save(categoryDto.toCategory());
+            throw new IllegalArgumentException("Category with id " + id + " does not exist");
         }
     }
 
-    public void update(CategoryDto categoryDto) {
-        if (categoryDto.getId() != null) {
-            Long id = categoryDto.getId();
+    public void save(Category category) {
+        if (categoryRepository.findByDescription(category.getDescription()).isPresent()) {
+            throw new NonUniqueResultException("Category with description '" + category.getDescription() + "' already exists");
+        } else {
+            categoryRepository.save(category);
+        }
+    }
+
+
+    public void update(Category category) {
+        if (category.getId() != null) {
+            Long id = category.getId();
             categoryRepository.findById(id)
-                    .ifPresent(category1 -> {
-                                categoryDto.setId(id);
-                                categoryRepository.save(categoryDto.toCategory());
+                    .ifPresent(categoryId -> {
+                                category.setId(id);
+                                if (categoryRepository.findByDescription(category.getDescription()).isPresent()) {
+                                    throw new NonUniqueResultException("Category with description '" + category.getDescription() + "' already exists");
+                                } else {
+                                    categoryRepository.save(category);
+                                }
                             }
                     );
         }
-    }
-
-    public void partialUpdate(CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(categoryDto.getId()).orElse(new Category());
-        if (categoryDto.getDescription() != null) {
-            category.setDescription(categoryDto.getDescription().orElse(null));
-        }
-
-        categoryRepository.save(category);
     }
 }
+
+
+

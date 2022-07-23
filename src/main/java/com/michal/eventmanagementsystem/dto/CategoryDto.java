@@ -4,30 +4,23 @@ import com.michal.eventmanagementsystem.model.Category;
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 public class CategoryDto {
 
     private Long id;
-    private JsonNullable<String> description;
-
-    public CategoryDto(Category category) {
-        this.id = category.getId();
-        this.description = category.getDescriptionToDto();
-    }
+    private String description;
 
     public boolean hasDescription() {
-        return description != null && description.isPresent();
+        return description != null;
     }
 
     public Category toCategory() {
         Category category = new Category();
         category.setId(id);
-        category.setDescription(description == null ? null : description.orElse(null));
+        category.setDescription(description);
         return category;
     }
 }

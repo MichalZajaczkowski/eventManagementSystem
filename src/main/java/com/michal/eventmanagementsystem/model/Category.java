@@ -6,8 +6,11 @@ import org.openapitools.jackson.nullable.JsonNullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
-@NoArgsConstructor
+/*
+Zweryfikuj, co zawiera dana adnotacja w Lomboku bo np @Data zawiera w sobie @Getter @Setter
+tu masz dokumentacj https://projectlombok.org/features/all, tyczy sie wszyskich Encji, modeli
+ */
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -20,10 +23,5 @@ public class Category {
     @Column(unique = true, nullable = false, name = "id")
     private Long id;
 
-    @NotNull(message = "Category name cannot be null")
     private String description;
-
-    public JsonNullable<String> getDescriptionToDto() {
-        return description == null ? null : JsonNullable.of(description);
-    }
 }
