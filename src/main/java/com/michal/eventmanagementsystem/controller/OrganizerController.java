@@ -29,25 +29,15 @@ public class OrganizerController {
     }
 
     @PostMapping()
-    public ResponseEntity<OrganizerDto> save(@Valid @RequestBody OrganizerDto organizerDto) {
-        organizerService.save(organizerDto);
+    public ResponseEntity<Organizer> save(@Valid @RequestBody Organizer organizer) {
+        organizerService.save(organizer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<Void> update(@RequestBody OrganizerDto organizerDto) {
-        if (organizerService.findById(organizerDto.getId()).isPresent()) {
-            organizerService.update(organizerDto);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PatchMapping()
-    public ResponseEntity<Void> partialUpdate(@RequestBody OrganizerDto organizerDto) {
-        if (organizerService.findById(organizerDto.getId()).isPresent()) {
-            organizerService.partialUpdate(organizerDto);
+    public ResponseEntity<Organizer> update(@RequestBody Organizer organizer) {
+        if (organizerService.findById(organizer.getId()).isPresent()) {
+            organizerService.update(organizer);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

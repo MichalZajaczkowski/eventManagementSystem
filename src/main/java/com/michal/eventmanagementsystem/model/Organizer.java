@@ -2,11 +2,9 @@ package com.michal.eventmanagementsystem.model;
 
 import lombok.*;
 import org.openapitools.jackson.nullable.JsonNullable;
-
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter

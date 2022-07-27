@@ -21,5 +21,11 @@ public interface OrganizerRepository extends JpaRepository<Organizer, Long> {
 
     void deleteAll();
 
+    Optional<Object> findByName(String description);
+
+    Optional<Object> findByDescription(String description);
+
+
+
 }
 

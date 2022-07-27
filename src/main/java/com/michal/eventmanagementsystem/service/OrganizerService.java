@@ -1,72 +1,55 @@
 package com.michal.eventmanagementsystem.service;
 
-import com.michal.eventmanagementsystem.dto.OrganizerDto;
 import com.michal.eventmanagementsystem.model.Organizer;
 import com.michal.eventmanagementsystem.repository.OrganizerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class OrganizerService {
 
-    OrganizerRepository organizerRegistration;
-
-    public OrganizerService(OrganizerRepository organizerRegistration) {
-        this.organizerRegistration = organizerRegistration;
-    }
-
+    private final OrganizerRepository organizerRepository;
 
     public List<Organizer> findAll() {
-        return organizerRegistration.findAll();
+        return organizerRepository.findAll();
     }
 
     public Optional<Organizer> findById(Long id) {
-        if (id == null) {
-            return Optional.empty();
+        if (organizerRepository.findById(id).isPresent()) {
+            return organizerRepository.findById(id);
         } else {
-            return organizerRegistration.findById(id);
+            throw new IllegalArgumentException("Organizer with id " + id + " does not exist");
         }
     }
 
-    public void save(OrganizerDto organizerDto) {
-        //Organizer organizer = organizerRegistration.findById(organizerDto.getId()).orElse(new Organizer());
-        if (organizerDto.getId() != null) {
-            Long id = organizerDto.getId();
-            organizerRegistration.findById(id)
-                    .ifPresent(organizer1 -> {
-                                organizerDto.setId(id);
-                                organizerRegistration.save(organizerDto.toOrganizer());
+    public void save(Organizer organizer) {
+        if (organizerRepository.findByName(organizer.getName()).isPresent()) {
+            throw new NonUniqueResultException("Organizer with name '" + organizer.getName() + "' already exists");
+        } else {
+            organizerRepository.save(organizer);
+        }
+    }
+
+    public void update(Organizer organizer) {
+        if (organizer.getId() != null) {
+            Long id = organizer.getId();
+            organizerRepository.findById(id)
+                    .ifPresent(organizerId -> {
+                                organizer.setId(id);
+                                if (organizerRepository.findByName(organizer.getName()).isPresent()) {
+                                    throw new NonUniqueResultException("Organizer with name '" + organizer.getName() + "' already exists");
+                                } else if (organizerRepository.findByDescription(organizer.getDescription()).isPresent()) {
+                                    throw new NonUniqueResultException("Organizer with description '" + organizer.getDescription() + "' already exists");
+                                } else {
+                                    organizerRepository.save(organizer);
+                                }
                             }
                     );
-        } else {
-            organizerRegistration.save(organizerDto.toOrganizer());
-        }
-    }
-
-    public void update(OrganizerDto organizerDto) {
-        if (organizerDto.getId() != null) {
-            Long id = organizerDto.getId();
-            organizerRegistration.findById(id)
-                    .ifPresent(organizer1 -> {
-                                organizerDto.setId(id);
-                                organizerRegistration.save(organizerDto.toOrganizer());
-                            }
-                    );
-        }
-    }
-
-    public void partialUpdate(OrganizerDto organizerDto) {
-        Organizer organizer = organizerRegistration.findById(organizerDto.getId()).orElse(null);
-        if (organizer != null) {
-            if (organizerDto.getName() != null) {
-                organizer.setNameToDto(organizerDto.getName());
-            }
-            if (organizerDto.getDescription() != null) {
-                organizer.setDescriptionToDto(organizerDto.getDescription());
-            }
-            organizerRegistration.save(organizer);
         }
     }
 }
